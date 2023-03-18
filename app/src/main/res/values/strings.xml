@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">HaBiTeamProject</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="login">Login</string>
+    <string name="password">Password</string>
+    <string name="username">Username</string>
+    <string name="temp">Hello</string>
+    <string name="back">Back</string>
+
+</resources>
