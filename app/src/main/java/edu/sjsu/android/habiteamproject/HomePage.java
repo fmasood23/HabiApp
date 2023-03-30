@@ -24,7 +24,7 @@ public class HomePage extends AppCompatActivity {
         Fragment setting = new SettingFragment();
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.nav_bar);
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, home).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, home).addToBackStack("first").commit();
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -41,7 +41,7 @@ public class HomePage extends AppCompatActivity {
                 }
 
                 if (selectedFragment != null) {
-                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).addToBackStack("next").commit();
                 }
                 return true;
             }
