@@ -18,12 +18,11 @@ public class SignUp extends AppCompatActivity {
 
         backButton = findViewById(R.id.back);
 
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(SignUp.this, MainActivity.class);
-                startActivity(i);
-            }
-        });
+        backButton.setOnClickListener(v -> backNav());
+    }
+
+    private void backNav(){
+        Intent i = new Intent(SignUp.this, MainActivity.class);
+        startActivity(i);
     }
 }
