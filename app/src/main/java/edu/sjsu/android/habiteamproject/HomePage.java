@@ -17,34 +17,33 @@ public class HomePage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.homepage);
 
-        FragmentManager fragmentManager = getSupportFragmentManager();
+        Fragment home = new HomeFragment();
+        BottomNavigationView bottomNavigationView = findViewById(R.id.nav_bar);
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, home).addToBackStack("first").commit();
+        bottomNavigationView.setOnItemSelectedListener(nav -> handleBottomNav(nav));
+    }
+
+    private boolean handleBottomNav(MenuItem item){
         Fragment home = new HomeFragment();
         Fragment calendar = new CalendarFragment();
         Fragment notif = new NotificationFragment();
         Fragment setting = new SettingFragment();
 
-        BottomNavigationView bottomNavigationView = findViewById(R.id.nav_bar);
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, home).addToBackStack("first").commit();
-        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                Fragment selectedFragment = null;
-                int itemId = item.getItemId();
-                if (itemId == R.id.home) {
-                    selectedFragment = home;
-                } else if (itemId == R.id.calendar) {
-                    selectedFragment = calendar;
-                } else if (itemId == R.id.notifications) {
-                    selectedFragment = notif;
-                } else if (itemId == R.id.settings) {
-                    selectedFragment = setting;
-                }
+        Fragment selectedFragment = null;
+        int itemId = item.getItemId();
+        if (itemId == R.id.home) {
+            selectedFragment = home;
+        } else if (itemId == R.id.calendar) {
+            selectedFragment = calendar;
+        } else if (itemId == R.id.notifications) {
+            selectedFragment = notif;
+        } else if (itemId == R.id.settings) {
+            selectedFragment = setting;
+        }
 
-                if (selectedFragment != null) {
-                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).addToBackStack("next").commit();
-                }
-                return true;
-            }
-        });
+        if (selectedFragment != null) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).addToBackStack("next").commit();
+        }
+        return true;
     }
 }
