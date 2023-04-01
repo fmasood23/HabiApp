@@ -4,8 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -24,34 +22,8 @@ public class MainActivity extends AppCompatActivity {
         loginButton = findViewById(R.id.login);
         signUpButton = findViewById(R.id.signup);
 
-        loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                String user = usernameInput.getText().toString();
-                String pass = passwordInput.getText().toString();
-
-                //validation if empty
-                if (TextUtils.isEmpty(user) && TextUtils.isEmpty(pass)) {
-                    Toast.makeText(MainActivity.this, "both vals are empty", Toast.LENGTH_SHORT).show();
-                } else if (TextUtils.isEmpty(user)) {
-                    Toast.makeText(MainActivity.this, "username empty", Toast.LENGTH_SHORT).show();
-                } else if (TextUtils.isEmpty(pass)) {
-                    Toast.makeText(MainActivity.this, "password empty", Toast.LENGTH_SHORT).show();
-                }
-
-                login(user, pass);
-            }
-        });
-
-
-        signUpButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(MainActivity.this, SignUp.class);
-                startActivity(i);
-            }
-        });
+        loginButton.setOnClickListener(v -> handleLogin());
+        signUpButton.setOnClickListener(v -> startSignUp());
     }
 
 
@@ -64,5 +36,26 @@ public class MainActivity extends AppCompatActivity {
             } else {
                 Toast.makeText(this, "bad", Toast.LENGTH_SHORT).show();
             }
+    }
+
+    private void handleLogin(){
+        String user = usernameInput.getText().toString();
+        String pass = passwordInput.getText().toString();
+
+        //validation if empty
+        if (user.isEmpty() && pass.isEmpty()) {
+            Toast.makeText(MainActivity.this, "both vals are empty", Toast.LENGTH_SHORT).show();
+        } else if (user.isEmpty()) {
+            Toast.makeText(MainActivity.this, "username empty", Toast.LENGTH_SHORT).show();
+        } else if (pass.isEmpty()) {
+            Toast.makeText(MainActivity.this, "password empty", Toast.LENGTH_SHORT).show();
+        } else {
+            login(user, pass);
+        }
+    }
+
+    private void startSignUp(){
+        Intent i = new Intent(MainActivity.this, SignUp.class);
+        startActivity(i);
     }
 }
