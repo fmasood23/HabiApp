@@ -42,7 +42,12 @@ public class HabiDB extends SQLiteOpenHelper {
         onCreate(sqLiteDatabase);
     }
 
-    public long insert(ContentValues contentValues) {
+    public long insertLogin(String username, String password, String eMail) {
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(userName, username);
+        contentValues.put(passWord, password);
+        contentValues.put(email, eMail);
+
         SQLiteDatabase database = getWritableDatabase();
         return database.insert(TABLE_NAME, null, contentValues);
     }

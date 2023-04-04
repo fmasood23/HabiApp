@@ -7,6 +7,48 @@
     android:background="@color/teal"
     tools:context=".SignUp">
 
+    <EditText
+        android:id="@+id/new_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/ten"
+        android:layout_marginTop="@dimen/twenty"
+        android:layout_marginEnd="@dimen/ten"
+        android:hint="Enter E-mail"
+        android:inputType="textEmailAddress" />
+
+    <EditText
+        android:id="@+id/new_username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/new_email"
+        android:layout_marginStart="@dimen/ten"
+        android:layout_marginTop="@dimen/twenty"
+        android:layout_marginEnd="@dimen/ten"
+        android:hint="Enter Username"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/new_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/new_username"
+        android:layout_marginStart="@dimen/ten"
+        android:layout_marginTop="@dimen/twenty"
+        android:layout_marginEnd="@dimen/ten"
+        android:hint="Enter Password"
+        android:inputType="textPassword" />
+
+    <Button
+        android:id="@+id/create_account"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/ten"
+        android:layout_marginTop="250dp"
+        android:layout_marginEnd="@dimen/ten"
+        android:text="Create Account"
+        android:textAllCaps="false" />
+
     <Button
         android:id="@+id/back"
         android:layout_width="match_parent"
