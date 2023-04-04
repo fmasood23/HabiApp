@@ -1,10 +1,13 @@
 package edu.sjsu.android.habiteamproject;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteConstraintException;
+import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -37,6 +40,16 @@ public class SignUp extends AppCompatActivity {
         String pass = password.getText().toString().trim();
         String mail = email.getText().toString().trim();
 
-        database.insertLogin(user, pass, mail);
+        if(user.isEmpty() || pass.isEmpty() || mail.isEmpty()){
+            Toast.makeText(SignUp.this, "Fields are still left empty", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            try{
+                database.insertLogin(user, pass, mail);
+            }
+            catch(SQLiteConstraintException e){
+                Toast.makeText(SignUp.this, "Account already exists", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 }

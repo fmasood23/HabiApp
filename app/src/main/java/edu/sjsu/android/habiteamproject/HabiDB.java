@@ -49,7 +49,7 @@ public class HabiDB extends SQLiteOpenHelper {
         contentValues.put(email, eMail);
 
         SQLiteDatabase database = getWritableDatabase();
-        return database.insert(TABLE_NAME, null, contentValues);
+        return database.insertOrThrow(TABLE_NAME, null, contentValues);
     }
 
     public Cursor getAllUsers(String orderBy) {
