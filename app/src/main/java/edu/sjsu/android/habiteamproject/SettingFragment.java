@@ -17,7 +17,6 @@ import android.widget.Button;
  */
 public class SettingFragment extends Fragment {
 
-    private Button signOutButton;
     public SettingFragment() {
         // Required empty public constructor
     }
@@ -34,14 +33,15 @@ public class SettingFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_setting, container, false);
-        signOutButton = view.findViewById(R.id.signout);
-        signOutButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getActivity(), MainActivity.class);
-                startActivity(i);
-            }
-        });
+
+        //onclick listener for sign out
+        view.findViewById(R.id.signout).setOnClickListener(v -> signOut());
         return view;
+
+    }
+
+    private void signOut(){
+        Intent i = new Intent(getActivity(), MainActivity.class);
+        startActivity(i);
     }
 }
