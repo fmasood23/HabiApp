@@ -3,13 +3,10 @@ package edu.sjsu.android.habiteamproject;
 import android.os.Bundle;
 import android.view.MenuItem;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationBarView;
 
 public class HomePage extends AppCompatActivity {
     @Override
@@ -17,32 +14,27 @@ public class HomePage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.homepage);
 
-        Fragment home = new HomeFragment();
         BottomNavigationView bottomNavigationView = findViewById(R.id.nav_bar);
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, home).addToBackStack("first").commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.current_fragment, new HomeFragment()).addToBackStack("first").commit();
         bottomNavigationView.setOnItemSelectedListener(nav -> handleBottomNav(nav));
     }
 
     private boolean handleBottomNav(MenuItem item){
-        Fragment home = new HomeFragment();
-        Fragment calendar = new CalendarFragment();
-        Fragment notif = new NotificationFragment();
-        Fragment setting = new SettingFragment();
+        Fragment currentFragment = null;
+        int currentItem = item.getItemId();
 
-        Fragment selectedFragment = null;
-        int itemId = item.getItemId();
-        if (itemId == R.id.home) {
-            selectedFragment = home;
-        } else if (itemId == R.id.calendar) {
-            selectedFragment = calendar;
-        } else if (itemId == R.id.notifications) {
-            selectedFragment = notif;
-        } else if (itemId == R.id.settings) {
-            selectedFragment = setting;
+        if (currentItem == R.id.home) {
+            currentFragment = new HomeFragment();
+        } else if (currentItem == R.id.calendar) {
+            currentFragment = new CalendarFragment();
+        } else if (currentItem == R.id.notifications) {
+            currentFragment = new NotificationFragment();
+        } else if (currentItem == R.id.settings) {
+            currentFragment = new SettingFragment();
         }
 
-        if (selectedFragment != null) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).addToBackStack("next").commit();
+        if (currentFragment != null) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.current_fragment, currentFragment).addToBackStack("next").commit();
         }
         return true;
     }
