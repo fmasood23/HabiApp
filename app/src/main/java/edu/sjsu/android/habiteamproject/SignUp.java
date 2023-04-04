@@ -32,9 +32,9 @@ public class SignUp extends AppCompatActivity {
     }
 
     private void insertNewAccount(){
-        EditText username = (EditText) findViewById(R.id.new_username);
-        EditText password = (EditText) findViewById(R.id.new_password);
-        EditText email = (EditText) findViewById(R.id.new_email);
+        EditText username = findViewById(R.id.new_username);
+        EditText password = findViewById(R.id.new_password);
+        EditText email = findViewById(R.id.new_email);
 
         String user = username.getText().toString().trim();
         String pass = password.getText().toString().trim();
