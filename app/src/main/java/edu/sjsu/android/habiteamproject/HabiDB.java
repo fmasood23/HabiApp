@@ -12,7 +12,7 @@ public class HabiDB extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "habiDB";
     private static final int VERSION = 1;
-    private static final String TABLE_NAME = "login";
+    public static final String TABLE_NAME = "login";
 
     private static final String userName = "username";
     private static final String passWord = "password";
@@ -50,6 +50,11 @@ public class HabiDB extends SQLiteOpenHelper {
 
         SQLiteDatabase database = getWritableDatabase();
         return database.insertOrThrow(TABLE_NAME, null, contentValues);
+    }
+
+    public long insert(String table, ContentValues contentValues) {
+        SQLiteDatabase database = getWritableDatabase();
+        return database.insertOrThrow(table, null, contentValues);
     }
 
     public Cursor getAllUsers(String orderBy) {

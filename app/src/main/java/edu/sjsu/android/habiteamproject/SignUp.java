@@ -1,5 +1,6 @@
 package edu.sjsu.android.habiteamproject;
 
+import android.content.ContentValues;
 import android.content.Intent;
 import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteException;
@@ -45,7 +46,12 @@ public class SignUp extends AppCompatActivity {
         }
         else {
             try{
-                database.insertLogin(user, pass, mail);
+                //database.insertLogin(user, pass, mail);
+                ContentValues contentValues = new ContentValues();
+                contentValues.put("username", user);
+                contentValues.put("password", pass);
+                contentValues.put("email", mail);
+                getContentResolver().insert(HabiProvider.CONTENT_URI, contentValues);
             }
             catch(SQLiteConstraintException e){
                 Toast.makeText(SignUp.this, "Account already exists", Toast.LENGTH_SHORT).show();
