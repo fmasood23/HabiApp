@@ -62,8 +62,11 @@ public class HabiProvider extends ContentProvider {
     @Override
     public Cursor query(Uri uri, String[] projection, String selection,
                         String[] selectionArgs, String sortOrder) {
-        // TODO: Implement this to handle query requests from clients.
-        throw new UnsupportedOperationException("Not yet implemented");
+        switch (uriMatcher.match(uri)) {
+            case 100:
+                return db.getLogin(selection);
+        }
+        return null;
     }
 
     @Override

@@ -3,7 +3,9 @@ package edu.sjsu.android.habiteamproject;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -29,12 +31,12 @@ public class MainActivity extends AppCompatActivity {
 
     private void login(String userName, String password) {
         //TODO: validate username and passwords with DB
-            if (userName.equals("admin") && password.equals("admin")) {
+            if ( password.equals(getPass(userName))) {
                 Toast.makeText(this, "good", Toast.LENGTH_SHORT).show();
                 Intent i = new Intent(MainActivity.this, HomePage.class);
                 startActivity(i);
             } else {
-                Toast.makeText(this, "bad", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getPass(userName), Toast.LENGTH_SHORT).show();
             }
     }
 
@@ -57,5 +59,26 @@ public class MainActivity extends AppCompatActivity {
     private void startSignUp(){
         Intent i = new Intent(MainActivity.this, SignUp.class);
         startActivity(i);
+    }
+
+    public String getPass(String user) {
+        // Sort by student name
+        try (Cursor c = getContentResolver().
+                query(HabiProvider.CONTENT_URI, null, user, null, null)) {
+            if (c.moveToFirst()) {
+                String result = "";
+                do {
+                    for (int i = 0; i < c.getColumnCount(); i++) {
+                        result = result.concat
+                                (c.getString(i));
+                    }
+                } while (c.moveToNext());
+                return result;
+            }
+            else{
+                return null;
+            }
+        }
+
     }
 }
