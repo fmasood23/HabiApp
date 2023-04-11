@@ -66,6 +66,6 @@ public class HabiDB extends SQLiteOpenHelper {
 
     public Cursor getLogin(String user) {
         SQLiteDatabase database = getWritableDatabase();
-        return database.rawQuery("SELECT password FROM login WHERE username = " + '"' + user + '"' +";", null);
+        return database.rawQuery("SELECT password FROM login WHERE username = " + '"' + user + '"' + ";", null);
     }
 }

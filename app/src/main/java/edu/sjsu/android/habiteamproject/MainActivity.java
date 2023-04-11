@@ -30,13 +30,12 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void login(String userName, String password) {
-        //TODO: validate username and passwords with DB
-            if ( password.equals(getPass(userName))) {
+            if (password.equals(getPass(userName))) {
                 Toast.makeText(this, "good", Toast.LENGTH_SHORT).show();
                 Intent i = new Intent(MainActivity.this, HomePage.class);
                 startActivity(i);
             } else {
-                Toast.makeText(this, getPass(userName), Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "wrong pass", Toast.LENGTH_SHORT).show();
             }
     }
 
@@ -62,7 +61,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public String getPass(String user) {
-        // Sort by student name
         try (Cursor c = getContentResolver().
                 query(HabiProvider.CONTENT_URI, null, user, null, null)) {
             if (c.moveToFirst()) {
@@ -75,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
                 } while (c.moveToNext());
                 return result;
             }
-            else{
+            else {
                 return null;
             }
         }
