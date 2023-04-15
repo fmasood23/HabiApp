@@ -7,7 +7,7 @@
     android:background="@color/teal"
     tools:context=".HomePage">
 
-    <FrameLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/current_fragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
