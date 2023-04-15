@@ -14,10 +14,14 @@ public class HabiProvider extends ContentProvider {
     public static final String AUTHORITY = "edu.sjsu.android.habiteamproject";
     public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/login");
 
+    public static final Uri CONTENT_URI_SLEEP = Uri.parse("content://" + AUTHORITY + "/sleep");
+
+
     private static final UriMatcher uriMatcher;
     static {
         uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
         uriMatcher.addURI(AUTHORITY, "login", 100);
+        uriMatcher.addURI(AUTHORITY, "sleep", 200);
     }
 
     public HabiProvider() {
@@ -31,7 +35,6 @@ public class HabiProvider extends ContentProvider {
 
     @Override
     public String getType(Uri uri) {
-        // TODO: Implement this to handle requests for the MIME type of the data
         // at the given URI.
         throw new UnsupportedOperationException("Not yet implemented");
     }
@@ -48,7 +51,15 @@ public class HabiProvider extends ContentProvider {
                     getContext().getContentResolver().notifyChange(_uri, null);
                     return _uri;
                 }
-                throw new SQLException("Failed to add a record into " + uri);
+            case 200:
+                long rowID2 = db.insert(HabiDB.TABLE_NAME_SLEEP, values);
+                //If record is added successfully
+                if (rowID2 > 0) {
+                    _uri = ContentUris.withAppendedId(uri, rowID2);
+                    getContext().getContentResolver().notifyChange(_uri, null);
+                    return _uri;
+                }
+                //throw new SQLException("Failed to add a record into " + uri);
         }
         return _uri;
     }

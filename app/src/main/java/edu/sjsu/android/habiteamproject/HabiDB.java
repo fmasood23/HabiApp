@@ -25,6 +25,16 @@ public class HabiDB extends SQLiteOpenHelper {
                     + email + " TEXT NOT NULL);";
 
 
+    public static final String TABLE_NAME_SLEEP = "sleep";
+
+    private static final String userName_sleep = "username";
+    private static final String num_Hours = "num_hours";
+
+    static final String CREATE_TABLE_SLEEP =
+            " CREATE TABLE " + TABLE_NAME_SLEEP +
+                    " ("+ userName_sleep + " TEXT NOT NULL, "
+                    + num_Hours + " DOUBLE);";
+
     public HabiDB(@Nullable Context context) {
         super(context, DATABASE_NAME, null, VERSION);
     }
@@ -32,13 +42,14 @@ public class HabiDB extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL(CREATE_TABLE);
-        //execSQL other tables
+        sqLiteDatabase.execSQL(CREATE_TABLE_SLEEP);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldV, int newV) {
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
         //execSQL drop other tables
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_SLEEP);
         onCreate(sqLiteDatabase);
     }
 
