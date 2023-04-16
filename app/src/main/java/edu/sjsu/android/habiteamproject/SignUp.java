@@ -52,6 +52,11 @@ public class SignUp extends AppCompatActivity {
                 contentValues.put("password", pass);
                 contentValues.put("email", mail);
                 getContentResolver().insert(HabiProvider.CONTENT_URI, contentValues);
+
+                ContentValues contentValues1 = new ContentValues();
+                contentValues1.put("username", user);
+                contentValues1.put("logged_in", "false");
+                getContentResolver().insert(HabiProvider.CONTENT_URI_CURRENT, contentValues1);
             }
             catch(SQLiteConstraintException e){
                 Toast.makeText(SignUp.this, "Account already exists", Toast.LENGTH_SHORT).show();

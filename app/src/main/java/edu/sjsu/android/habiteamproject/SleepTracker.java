@@ -1,6 +1,7 @@
 package edu.sjsu.android.habiteamproject;
 
 import android.content.ContentValues;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteConstraintException;
 import android.os.Bundle;
 
@@ -55,8 +56,7 @@ public class SleepTracker extends Fragment {
 
         try{
             ContentValues contentValues = new ContentValues();
-            contentValues.put("username", Settings.Secure.getString(getContext().getContentResolver(),
-                    Settings.Secure.ANDROID_ID));
+            contentValues.put("username", getUsername());
             contentValues.put("num_hours", inputted_hours);
             getActivity().getContentResolver().insert(HabiProvider.CONTENT_URI_SLEEP, contentValues);
         }
@@ -69,6 +69,23 @@ public class SleepTracker extends Fragment {
 
     }
 
+    public String getUsername() {
+        try (Cursor c = getActivity().getContentResolver().
+                query(HabiProvider.CONTENT_URI_CURRENT, null, null, null, null)) {
+            if (c.moveToFirst()) {
+                String result = "";
+                do {
+                    for (int i = 0; i < c.getColumnCount(); i++) {
+                        result = result.concat
+                                (c.getString(i));
+                    }
+                } while (c.moveToNext());
+                return result;
+            } else {
+                return null;
+            }
+        }
+    }
 
     public boolean validate(String input){
         if(input.isEmpty()){

@@ -16,12 +16,15 @@ public class HabiProvider extends ContentProvider {
 
     public static final Uri CONTENT_URI_SLEEP = Uri.parse("content://" + AUTHORITY + "/sleep");
 
+    public static final Uri CONTENT_URI_CURRENT = Uri.parse("content://" + AUTHORITY + "/current");
+
 
     private static final UriMatcher uriMatcher;
     static {
         uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
         uriMatcher.addURI(AUTHORITY, "login", 100);
         uriMatcher.addURI(AUTHORITY, "sleep", 200);
+        uriMatcher.addURI(AUTHORITY, "current", 300);
     }
 
     public HabiProvider() {
@@ -59,6 +62,14 @@ public class HabiProvider extends ContentProvider {
                     getContext().getContentResolver().notifyChange(_uri, null);
                     return _uri;
                 }
+            case 300:
+                long rowID3 = db.insert(HabiDB.TABLE_NAME_CURRENT, values);
+                //If record is added successfully
+                if (rowID3 > 0) {
+                    _uri = ContentUris.withAppendedId(uri, rowID3);
+                    getContext().getContentResolver().notifyChange(_uri, null);
+                    return _uri;
+                }
                 //throw new SQLException("Failed to add a record into " + uri);
         }
         return _uri;
@@ -76,6 +87,8 @@ public class HabiProvider extends ContentProvider {
         switch (uriMatcher.match(uri)) {
             case 100:
                 return db.getLogin(selection);
+            case 300:
+                return db.getUser();
         }
         return null;
     }
@@ -83,7 +96,12 @@ public class HabiProvider extends ContentProvider {
     @Override
     public int update(Uri uri, ContentValues values, String selection,
                       String[] selectionArgs) {
-        // TODO: Implement this to handle requests to update one or more rows.
-        throw new UnsupportedOperationException("Not yet implemented");
+        switch (uriMatcher.match(uri)) {
+            case 300:
+                if(db.updateLogin(values, selection)){
+                    return 1;
+                }
+        }
+        return -1;
     }
 }

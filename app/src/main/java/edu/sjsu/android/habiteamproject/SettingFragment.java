@@ -1,6 +1,8 @@
 package edu.sjsu.android.habiteamproject;
 
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -10,11 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link SettingFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class SettingFragment extends Fragment {
 
     public SettingFragment() {
@@ -40,7 +37,31 @@ public class SettingFragment extends Fragment {
 
     }
 
+    public String getUsername() {
+        try (Cursor c = getActivity().getContentResolver().
+                query(HabiProvider.CONTENT_URI_CURRENT, null, null, null, null)) {
+            if (c.moveToFirst()) {
+                String result = "";
+                do {
+                    for (int i = 0; i < c.getColumnCount(); i++) {
+                        result = result.concat
+                                (c.getString(i));
+                    }
+                } while (c.moveToNext());
+                return result;
+            } else {
+                return null;
+            }
+        }
+    }
+
     private void signOut(){
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("username", getUsername());
+        contentValues.put("logged_in", "false");
+        getActivity().getContentResolver().update(HabiProvider.CONTENT_URI_CURRENT, contentValues, getUsername(), null);
+
+
         Intent i = new Intent(getActivity(), MainActivity.class);
         startActivity(i);
     }
