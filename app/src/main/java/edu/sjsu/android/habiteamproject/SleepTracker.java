@@ -65,7 +65,7 @@ public class SleepTracker extends Fragment {
             Toast.makeText(getActivity(), "error", Toast.LENGTH_SHORT).show();
         }
 
-        setAvg.setText(inputted_hours);
+        setAvg.setText("You sleep an average of " + Double.toString(getNumSleep()) + " hours a night.");
 
     }
 
@@ -83,6 +83,25 @@ public class SleepTracker extends Fragment {
                 return result;
             } else {
                 return null;
+            }
+        }
+    }
+
+    public double getNumSleep() {
+        int count = 0;
+        try (Cursor c = getActivity().getContentResolver().
+                query(HabiProvider.CONTENT_URI_SLEEP, null, getUsername(), null, null)) {
+            if (c.moveToFirst()) {
+                double result = 0;
+                do {
+                    count++;
+                    for (int i = 0; i < c.getColumnCount(); i++) {
+                        result +=(c.getDouble(i));
+                    }
+                } while (c.moveToNext());
+                return result/count;
+            } else {
+                return -1;
             }
         }
     }

@@ -97,6 +97,11 @@ public class HabiDB extends SQLiteOpenHelper {
         return database.rawQuery("SELECT username FROM current WHERE logged_in = 'true';", null);
     }
 
+    public Cursor getNumSleep(String user) {
+        SQLiteDatabase database = getWritableDatabase();
+        return database.rawQuery("SELECT num_hours FROM sleep WHERE username = " + '"' + user + '"' + ";", null);
+    }
+
     public boolean updateLogin(ContentValues contentValues, String user) {
         SQLiteDatabase database = getWritableDatabase();
         database.update(TABLE_NAME_CURRENT, contentValues, "username = ?", new String[] {user});

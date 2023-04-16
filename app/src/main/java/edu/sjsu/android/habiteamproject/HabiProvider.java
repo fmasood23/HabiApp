@@ -87,6 +87,8 @@ public class HabiProvider extends ContentProvider {
         switch (uriMatcher.match(uri)) {
             case 100:
                 return db.getLogin(selection);
+            case 200:
+                return db.getNumSleep(selection);
             case 300:
                 return db.getUser();
         }
