@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.icu.text.CaseMap;
 
 import androidx.annotation.Nullable;
 
@@ -45,6 +46,18 @@ public class HabiDB extends SQLiteOpenHelper {
                     " ("+ userName_current + " TEXT PRIMARY KEY NOT NULL, "
                     + logged_in + " TEXT NOT NULL);";
 
+    public static final String TABLE_NAME_CALENDAR = "calendar";
+
+    private static final String userName_calendar = "username";
+    private static final String date = "date";
+    private static final String title = "title";
+
+    static final String CREATE_TABLE_CALENDAR =
+            " CREATE TABLE " + TABLE_NAME_CALENDAR +
+                    " ("+ userName_calendar + " TEXT NOT NULL, "
+                    + date + " TEXT NOT NULL, "
+                    + title + " TEXT NOT NULL);";
+
     public HabiDB(@Nullable Context context) {
         super(context, DATABASE_NAME, null, VERSION);
     }
@@ -54,14 +67,15 @@ public class HabiDB extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(CREATE_TABLE);
         sqLiteDatabase.execSQL(CREATE_TABLE_SLEEP);
         sqLiteDatabase.execSQL(CREATE_TABLE_CURRENT);
+        sqLiteDatabase.execSQL(CREATE_TABLE_CALENDAR);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldV, int newV) {
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
-        //execSQL drop other tables
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_SLEEP);
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_CURRENT);
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_CALENDAR);
         onCreate(sqLiteDatabase);
     }
 
@@ -80,11 +94,16 @@ public class HabiDB extends SQLiteOpenHelper {
         return database.insertOrThrow(table, null, contentValues);
     }
 
-    public Cursor getAllUsers(String orderBy) {
+    public Cursor getAllDate(String orderBy) {
         SQLiteDatabase database = getWritableDatabase();
-        return database.query(TABLE_NAME,
-                new String[]{userName, passWord, email},
+        return database.query(TABLE_NAME_CALENDAR,
+                new String[]{userName_calendar, date, title},
                 null, null, null, null, orderBy);
+    }
+
+    public Cursor getAllDates(String user) {
+        SQLiteDatabase database = getWritableDatabase();
+        return database.rawQuery("SELECT * FROM calendar WHERE username = " + '"' + user + '"' + ";", null);
     }
 
     public Cursor getLogin(String user) {

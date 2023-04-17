@@ -1,5 +1,7 @@
 package edu.sjsu.android.habiteamproject;
 
+import android.content.ContentValues;
+import android.database.Cursor;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,51 +9,35 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CalendarView;
+import android.widget.EditText;
+import android.widget.ScrollView;
+import android.widget.TextView;
+import android.widget.Toast;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link CalendarFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class CalendarFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    public TextView date;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    public CalendarView calendarView;
+
+    public EditText dateTitle;
+
+    public String dateFormat;
 
     public CalendarFragment() {
         // Required empty public constructor
+        dateFormat = "";
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment CalendarFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static CalendarFragment newInstance(String param1, String param2) {
-        CalendarFragment fragment = new CalendarFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
 
@@ -59,6 +45,84 @@ public class CalendarFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_calendar, container, false);
+        View view = inflater.inflate(R.layout.fragment_calendar, container, false);
+
+        date = view.findViewById(R.id.get_date);
+        dateTitle = view.findViewById(R.id.enter_title);
+        calendarView = view.findViewById(R.id.calendarView);
+
+        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            @Override
+            public void onSelectedDayChange(CalendarView v, int year, int month,
+                                            int dayOfMonth) {
+                String m="";
+                int mon = month+1;
+                if (mon < 10) {
+                    m = "0" + String.valueOf(mon);
+                }
+                else{
+                    m = String.valueOf(mon);
+                }
+                dateFormat = m + "/" + String.valueOf(dayOfMonth) + "/" + String.valueOf(year);
+                view.findViewById(R.id.add_event).setOnClickListener(val -> add(dateFormat));
+            }
+
+        });
+
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+        String selectedDate = sdf.format(new Date(calendarView.getDate()));
+        view.findViewById(R.id.add_event).setOnClickListener(val -> add(selectedDate));
+        view.findViewById(R.id.get_event).setOnClickListener(this::getAllDates);
+
+        return view;
+    }
+
+    public void add(String v) {
+        try {
+            ContentValues contentValues = new ContentValues();
+            contentValues.put("username", getUsername());
+            contentValues.put("date", v);
+            contentValues.put("title", dateTitle.getText().toString());
+
+            getActivity().getContentResolver().insert(HabiProvider.CONTENT_URI_CALENDAR, contentValues);
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(getActivity(), "error", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public String getUsername() {
+        try (Cursor c = getActivity().getContentResolver().
+                query(HabiProvider.CONTENT_URI_CURRENT, null, null, null, null)) {
+            if (c.moveToFirst()) {
+                String result = "";
+                do {
+                    for (int i = 0; i < c.getColumnCount(); i++) {
+                        result = result.concat
+                                (c.getString(i));
+                    }
+                } while (c.moveToNext());
+                return result;
+            } else {
+                return null;
+            }
+        }
+    }
+
+
+    public void getAllDates(View view) {
+        // Sort by student name
+        try (Cursor c = getActivity().getContentResolver().query(HabiProvider.CONTENT_URI_CALENDAR, null, getUsername(), null, null)) {
+            if (c.moveToFirst()) {
+                String result = "All Dates: \n";
+                do {
+                    for (int i = 1; i < c.getColumnCount(); i++) {
+                        result = result.concat(c.getString(i) + "      ");
+                    }
+                    result = result.concat("\n");
+                } while (c.moveToNext());
+                date.setText(result);
+            }
+        }
     }
 }

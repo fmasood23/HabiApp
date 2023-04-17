@@ -1,14 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content" >
+
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".CalendarFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <CalendarView
+        android:id="@+id/calendarView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="calendar" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <EditText
+        android:id="@+id/enter_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter title of the event"
+        android:inputType="text"
+        android:layout_margin="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/calendarView"/>
+
+
+    <Button
+        android:id="@+id/get_event"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Get all dates"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/add_event"
+        app:layout_constraintTop_toBottomOf="@+id/enter_title" />
+
+    <Button
+        android:id="@+id/add_event"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add Date"
+        app:layout_constraintBottom_toBottomOf="@+id/get_event"
+        app:layout_constraintEnd_toStartOf="@+id/get_event"
+        app:layout_constraintStart_toEndOf="@+id/enter_title"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/get_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/get_event" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
