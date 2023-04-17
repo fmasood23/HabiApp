@@ -9,6 +9,8 @@ import android.icu.text.CaseMap;
 
 import androidx.annotation.Nullable;
 
+import java.util.Calendar;
+
 public class HabiDB extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "habiDB";
@@ -58,6 +60,19 @@ public class HabiDB extends SQLiteOpenHelper {
                     + date + " TEXT NOT NULL, "
                     + title + " TEXT NOT NULL);";
 
+
+    public static final String TABLE_NAME_WATER = "water";
+
+    private static final String userName_water = "username";
+    private static final String date_water = "date";
+    private static final String count = "count";
+
+    static final String CREATE_TABLE_WATER =
+            " CREATE TABLE " + TABLE_NAME_WATER +
+                    " ("+ userName_water + " TEXT NOT NULL, "
+                    + date_water + " TEXT NOT NULL, "
+                    + count + " INTEGER);";
+
     public HabiDB(@Nullable Context context) {
         super(context, DATABASE_NAME, null, VERSION);
     }
@@ -68,6 +83,7 @@ public class HabiDB extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(CREATE_TABLE_SLEEP);
         sqLiteDatabase.execSQL(CREATE_TABLE_CURRENT);
         sqLiteDatabase.execSQL(CREATE_TABLE_CALENDAR);
+        sqLiteDatabase.execSQL(CREATE_TABLE_WATER);
     }
 
     @Override
@@ -76,6 +92,7 @@ public class HabiDB extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_SLEEP);
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_CURRENT);
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_CALENDAR);
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_WATER);
         onCreate(sqLiteDatabase);
     }
 
@@ -104,6 +121,15 @@ public class HabiDB extends SQLiteOpenHelper {
     public Cursor getAllDates(String user) {
         SQLiteDatabase database = getWritableDatabase();
         return database.rawQuery("SELECT * FROM calendar WHERE username = " + '"' + user + '"' + ";", null);
+    }
+
+    public Cursor getAllWater(String user) {
+        SQLiteDatabase database = getWritableDatabase();
+        String currentTime = Calendar.getInstance().getTime().toString();
+        String[] current = currentTime.split(" ");
+        String newCurrent = current[0] + " " + current[1] + " " + current[2];
+
+        return database.rawQuery("SELECT count FROM water WHERE username = " + '"' + user + '"' + "AND date = " +'"' + newCurrent + '"' + ";", null);
     }
 
     public Cursor getLogin(String user) {

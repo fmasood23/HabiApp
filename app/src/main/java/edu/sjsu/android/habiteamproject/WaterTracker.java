@@ -1,5 +1,7 @@
 package edu.sjsu.android.habiteamproject;
 
+import android.content.ContentValues;
+import android.database.Cursor;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,51 +9,25 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link WaterTracker#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.Calendar;
+
 public class WaterTracker extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    public TextView total;
 
     public WaterTracker() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment WaterTracker.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static WaterTracker newInstance(String param1, String param2) {
-        WaterTracker fragment = new WaterTracker();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+
         }
     }
 
@@ -59,6 +35,65 @@ public class WaterTracker extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_water_tracker, container, false);
+        View view =  inflater.inflate(R.layout.fragment_water_tracker, container, false);
+
+        total = view.findViewById(R.id.water_total);
+        total.setText("You drank " + String.valueOf(getWaterTotal()) + " glasses of water today.");
+
+        view.findViewById(R.id.submit_water).setOnClickListener(this::add);
+
+        return view;
+    }
+
+    public void add(View v){
+        try{
+            String currentTime = Calendar.getInstance().getTime().toString();
+            String[] current = currentTime.split(" ");
+            String newCurrent = current[0] + " " + current[1] + " " + current[2];
+            ContentValues contentValues = new ContentValues();
+            contentValues.put("username", getUsername());
+            contentValues.put("date", newCurrent);
+            contentValues.put("count", 1);
+
+            getActivity().getContentResolver().insert(HabiProvider.CONTENT_URI_WATER, contentValues);
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            Toast.makeText(getActivity(), "error", Toast.LENGTH_SHORT).show();
+        }
+        total.setText("You drank " + String.valueOf(getWaterTotal()) + " glasses of water today.");
+    }
+
+    public String getUsername() {
+        try (Cursor c = getActivity().getContentResolver().
+                query(HabiProvider.CONTENT_URI_CURRENT, null, null, null, null)) {
+            if (c.moveToFirst()) {
+                String result = "";
+                do {
+                    for (int i = 0; i < c.getColumnCount(); i++) {
+                        result = result.concat
+                                (c.getString(i));
+                    }
+                } while (c.moveToNext());
+                return result;
+            } else {
+                return null;
+            }
+        }
+    }
+
+    public int getWaterTotal() {
+        try (Cursor c = getActivity().getContentResolver().
+                query(HabiProvider.CONTENT_URI_WATER, null, getUsername(), null, null)) {
+            if (c.moveToFirst()) {
+                int result = 0;
+                do {
+                    result++;
+                } while (c.moveToNext());
+                return result;
+            } else {
+                return 0;
+            }
+        }
     }
 }

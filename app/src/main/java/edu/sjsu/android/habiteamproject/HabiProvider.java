@@ -20,6 +20,7 @@ public class HabiProvider extends ContentProvider {
 
     public static final Uri CONTENT_URI_CALENDAR = Uri.parse("content://" + AUTHORITY + "/calendar");
 
+    public static final Uri CONTENT_URI_WATER = Uri.parse("content://" + AUTHORITY + "/water");
 
     private static final UriMatcher uriMatcher;
     static {
@@ -28,6 +29,7 @@ public class HabiProvider extends ContentProvider {
         uriMatcher.addURI(AUTHORITY, "sleep", 200);
         uriMatcher.addURI(AUTHORITY, "current", 300);
         uriMatcher.addURI(AUTHORITY, "calendar", 400);
+        uriMatcher.addURI(AUTHORITY, "water", 500);
     }
 
     public HabiProvider() {
@@ -81,6 +83,15 @@ public class HabiProvider extends ContentProvider {
                     getContext().getContentResolver().notifyChange(_uri, null);
                     return _uri;
                 }
+            case 500:
+                long rowID5 = db.insert(HabiDB.TABLE_NAME_WATER, values);
+                //If record is added successfully
+                if (rowID5 > 0) {
+                    _uri = ContentUris.withAppendedId(uri, rowID5);
+                    getContext().getContentResolver().notifyChange(_uri, null);
+                    return _uri;
+                }
+
                 //throw new SQLException("Failed to add a record into " + uri);
         }
         return _uri;
@@ -104,6 +115,8 @@ public class HabiProvider extends ContentProvider {
                 return db.getUser();
             case 400:
                 return db.getAllDates(selection);
+            case 500:
+                return db.getAllWater(selection);
         }
         return null;
     }
