@@ -11,8 +11,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 public class SettingFragment extends Fragment {
+
+    public EditText new_pass;
 
     public SettingFragment() {
         // Required empty public constructor
@@ -33,6 +37,9 @@ public class SettingFragment extends Fragment {
 
         //onclick listener for sign out
         view.findViewById(R.id.signout).setOnClickListener(v -> signOut());
+        view.findViewById(R.id.change_pass).setOnClickListener(v -> updateAcc());
+        new_pass = view.findViewById(R.id.new_pass);
+
         return view;
 
     }
@@ -64,5 +71,17 @@ public class SettingFragment extends Fragment {
 
         Intent i = new Intent(getActivity(), MainActivity.class);
         startActivity(i);
+    }
+
+    private void updateAcc(){
+        String pass = new_pass.getText().toString().trim();
+
+        if(pass.isEmpty()){
+            Toast.makeText(getActivity(), "Do not leave empty", Toast.LENGTH_SHORT).show();
+        }
+        String[] vals = {pass, getUsername()};
+
+        getActivity().getContentResolver().update(HabiProvider.CONTENT_URI, null, null, vals);
+
     }
 }

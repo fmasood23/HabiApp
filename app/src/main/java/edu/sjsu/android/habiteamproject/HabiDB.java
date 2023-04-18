@@ -152,4 +152,12 @@ public class HabiDB extends SQLiteOpenHelper {
         database.update(TABLE_NAME_CURRENT, contentValues, "username = ?", new String[] {user});
         return true;
     }
+
+    public boolean updateAcc(String pass, String user) {
+        SQLiteDatabase database = getWritableDatabase();
+        //database.update(TABLE_NAME, contentValues, "username = ?", new String[] {user});
+        String qu="UPDATE "+ TABLE_NAME + " SET "+passWord+" = "+ '"' +pass + '"' +" WHERE username = "+ '"' +user+ '"' +";";
+        database.execSQL(qu);
+        return true;
+    }
 }
