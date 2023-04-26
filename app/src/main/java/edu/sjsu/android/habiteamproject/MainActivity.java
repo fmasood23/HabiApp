@@ -29,6 +29,8 @@ public class MainActivity extends AppCompatActivity {
 
         loginButton.setOnClickListener(v -> handleLogin());
         signUpButton.setOnClickListener(v -> startSignUp());
+
+        initialize();
     }
 
 
@@ -85,6 +87,12 @@ public class MainActivity extends AppCompatActivity {
                 return null;
             }
         }
+
+    }
+
+    public void initialize(){
+        String[] arr = {"reset"};
+        getContentResolver().update(HabiProvider.CONTENT_URI_CURRENT, null, null, arr);
 
     }
 }

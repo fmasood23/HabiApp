@@ -73,6 +73,16 @@ public class HabiDB extends SQLiteOpenHelper {
                     + date_water + " TEXT NOT NULL, "
                     + count + " INTEGER);";
 
+    public static final String TABLE_NAME_TO_DO = "todo";
+
+    private static final String userName_to_do = "username";
+    private static final String content = "content";
+
+    static final String CREATE_TABLE_TO_DO =
+            " CREATE TABLE " + TABLE_NAME_TO_DO +
+                    " ("+ userName_to_do + " TEXT NOT NULL, "
+                    + content + " TEXT NOT NULL);";
+
     public HabiDB(@Nullable Context context) {
         super(context, DATABASE_NAME, null, VERSION);
     }
@@ -84,6 +94,7 @@ public class HabiDB extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(CREATE_TABLE_CURRENT);
         sqLiteDatabase.execSQL(CREATE_TABLE_CALENDAR);
         sqLiteDatabase.execSQL(CREATE_TABLE_WATER);
+        sqLiteDatabase.execSQL(CREATE_TABLE_TO_DO);
     }
 
     @Override
@@ -93,18 +104,9 @@ public class HabiDB extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_CURRENT);
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_CALENDAR);
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_WATER);
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_TO_DO);
         onCreate(sqLiteDatabase);
     }
-
-//    public long insertLogin(String username, String password, String eMail) {
-//        ContentValues contentValues = new ContentValues();
-//        contentValues.put(userName, username);
-//        contentValues.put(passWord, password);
-//        contentValues.put(email, eMail);
-//
-//        SQLiteDatabase database = getWritableDatabase();
-//        return database.insertOrThrow(TABLE_NAME, null, contentValues);
-//    }
 
     public long insert(String table, ContentValues contentValues) {
         SQLiteDatabase database = getWritableDatabase();
@@ -116,6 +118,13 @@ public class HabiDB extends SQLiteOpenHelper {
         return database.query(TABLE_NAME_CALENDAR,
                 new String[]{userName_calendar, date, title},
                 null, null, null, null, orderBy);
+    }
+
+    public Cursor getAllItems() {
+        SQLiteDatabase database = getWritableDatabase();
+        return database.query(TABLE_NAME_TO_DO,
+                new String[]{userName_to_do, content},
+                null, null, null, null, null);
     }
 
     public Cursor getAllDates(String user) {
@@ -153,11 +162,24 @@ public class HabiDB extends SQLiteOpenHelper {
         return true;
     }
 
+    public boolean defaultFalse() {
+        SQLiteDatabase database = getWritableDatabase();
+        String qu="UPDATE "+ TABLE_NAME_CURRENT + " SET "+logged_in+" = "+ "\"false\""+";";
+        database.execSQL(qu);
+        return true;
+    }
+
     public boolean updateAcc(String pass, String user) {
         SQLiteDatabase database = getWritableDatabase();
         //database.update(TABLE_NAME, contentValues, "username = ?", new String[] {user});
         String qu="UPDATE "+ TABLE_NAME + " SET "+passWord+" = "+ '"' +pass + '"' +" WHERE username = "+ '"' +user+ '"' +";";
         database.execSQL(qu);
         return true;
+    }
+
+    public int delete_to_do(String user){
+        SQLiteDatabase database = getWritableDatabase();
+        return database.delete(TABLE_NAME_TO_DO, userName_to_do + " = ?",
+                new String[]{user});
     }
 }

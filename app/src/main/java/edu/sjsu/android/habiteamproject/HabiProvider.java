@@ -22,6 +22,8 @@ public class HabiProvider extends ContentProvider {
 
     public static final Uri CONTENT_URI_WATER = Uri.parse("content://" + AUTHORITY + "/water");
 
+    public static final Uri CONTENT_URI_TO_DO = Uri.parse("content://" + AUTHORITY + "/todo");
+
     private static final UriMatcher uriMatcher;
     static {
         uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
@@ -30,15 +32,10 @@ public class HabiProvider extends ContentProvider {
         uriMatcher.addURI(AUTHORITY, "current", 300);
         uriMatcher.addURI(AUTHORITY, "calendar", 400);
         uriMatcher.addURI(AUTHORITY, "water", 500);
+        uriMatcher.addURI(AUTHORITY, "todo", 600);
     }
 
     public HabiProvider() {
-    }
-
-    @Override
-    public int delete(Uri uri, String selection, String[] selectionArgs) {
-        // Implement this to handle requests to delete one or more rows.
-        throw new UnsupportedOperationException("Not yet implemented");
     }
 
     @Override
@@ -91,7 +88,14 @@ public class HabiProvider extends ContentProvider {
                     getContext().getContentResolver().notifyChange(_uri, null);
                     return _uri;
                 }
-
+            case 600:
+                long rowID6 = db.insert(HabiDB.TABLE_NAME_TO_DO, values);
+                //If record is added successfully
+                if (rowID6 > 0) {
+                    _uri = ContentUris.withAppendedId(uri, rowID6);
+                    getContext().getContentResolver().notifyChange(_uri, null);
+                    return _uri;
+                }
                 //throw new SQLException("Failed to add a record into " + uri);
         }
         return _uri;
@@ -117,6 +121,8 @@ public class HabiProvider extends ContentProvider {
                 return db.getAllDates(selection);
             case 500:
                 return db.getAllWater(selection);
+            case 600:
+                return db.getAllItems();
         }
         return null;
     }
@@ -126,13 +132,33 @@ public class HabiProvider extends ContentProvider {
                       String[] selectionArgs) {
         switch (uriMatcher.match(uri)) {
             case 100:
-                if(db.updateAcc(selectionArgs[0], selectionArgs[1])){
+                if (db.updateAcc(selectionArgs[0], selectionArgs[1])) {
                     return 1;
                 }
             case 300:
-                if(db.updateLogin(values, selection)){
-                    return 1;
+                if (selectionArgs!= null && selectionArgs[0].equals("reset")) {
+                    if(db.defaultFalse()){
+                        return 1;
+                    }
+                } else {
+                    if (db.updateLogin(values, selection)) {
+                        return 1;
+                    }
                 }
+        }
+        return -1;
+    }
+
+    @Override
+    public int delete(Uri uri, String selection, String[] selectionArgs) {
+        switch (uriMatcher.match(uri)) {
+            case 600:
+                int deleted = db.delete_to_do(selection);
+                if (deleted >= 0) {
+                    getContext().getContentResolver().notifyChange(uri, null);
+                    return deleted;
+                }
+
         }
         return -1;
     }
