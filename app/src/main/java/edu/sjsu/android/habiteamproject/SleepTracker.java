@@ -49,7 +49,7 @@ public class SleepTracker extends Fragment {
     public void setSleep(View view){
         String inputted_hours = sleepInput.getText().toString();
 
-        if(validate(inputted_hours)){
+        if(inputted_hours.isEmpty()){
             Toast.makeText(getActivity(),"Invalid input",Toast.LENGTH_LONG).show();
             return;
         }
@@ -104,12 +104,5 @@ public class SleepTracker extends Fragment {
                 return -1;
             }
         }
-    }
-
-    public boolean validate(String input){
-        if(input.isEmpty()){
-            return true;
-        }
-        return false;
     }
 }

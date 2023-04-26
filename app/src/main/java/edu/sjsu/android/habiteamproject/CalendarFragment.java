@@ -77,7 +77,7 @@ public class CalendarFragment extends Fragment {
         return view;
     }
 
-    public void add(String v) {
+    public void add(String date) {
         try {
             if(dateTitle.getText().toString().isEmpty()){
                 Toast.makeText(getActivity(), "Title field is required", Toast.LENGTH_SHORT).show();
@@ -85,7 +85,7 @@ public class CalendarFragment extends Fragment {
             else {
                 ContentValues contentValues = new ContentValues();
                 contentValues.put("username", getUsername());
-                contentValues.put("date", v);
+                contentValues.put("date", date);
                 contentValues.put("title", dateTitle.getText().toString());
 
                 getActivity().getContentResolver().insert(HabiProvider.CONTENT_URI_CALENDAR, contentValues);
