@@ -32,7 +32,6 @@ public class ToDoList extends Fragment {
 
 
     public ToDoList() {
-        // Required empty public constructor
     }
 
     @Override
@@ -57,10 +56,10 @@ public class ToDoList extends Fragment {
     public void add(View v) {
         final EditText taskEditText = new EditText(getContext());
         AlertDialog dialog = new AlertDialog.Builder(getContext())
-                .setTitle("Add a new task")
-                .setMessage("What do you want to do next?")
+                .setTitle("Add a new To-Do Item:")
+                .setMessage("What is your to-do item?")
                 .setView(taskEditText)
-                .setPositiveButton("Add", new DialogInterface.OnClickListener() {
+                .setPositiveButton("Add Item", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         String task = String.valueOf(taskEditText.getText());
@@ -68,14 +67,13 @@ public class ToDoList extends Fragment {
                         populateList();
                     }
                 })
-                .setNegativeButton("Cancel", null)
+                .setNegativeButton("Back", null)
                 .create();
         dialog.show();
     }
 
     private void populateList() {
         ArrayList<String> to_do_list = new ArrayList<>();
-        //query db for existing and add new
 
         if(getItems()!=null) {
             for (String i : getItems()) {

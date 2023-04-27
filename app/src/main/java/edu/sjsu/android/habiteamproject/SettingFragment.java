@@ -1,6 +1,8 @@
 package edu.sjsu.android.habiteamproject;
 
+import android.app.AlertDialog;
 import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteException;
@@ -16,8 +18,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 public class SettingFragment extends Fragment {
-
-    public EditText new_pass;
 
     public SettingFragment() {
         // Required empty public constructor
@@ -38,8 +38,7 @@ public class SettingFragment extends Fragment {
 
         //onclick listener for sign out
         view.findViewById(R.id.signout).setOnClickListener(v -> signOut());
-        view.findViewById(R.id.change_pass).setOnClickListener(v -> updateAcc());
-        new_pass = view.findViewById(R.id.new_pass);
+        view.findViewById(R.id.change_pass).setOnClickListener(this::add);
 
         return view;
 
@@ -74,9 +73,25 @@ public class SettingFragment extends Fragment {
         startActivity(i);
     }
 
-    private void updateAcc(){
-        String pass = new_pass.getText().toString().trim();
+    public void add(View v) {
+        final EditText taskEditText = new EditText(getContext());
+        AlertDialog dialog = new AlertDialog.Builder(getContext())
+                .setTitle("Change your Password:")
+                .setMessage("Enter your new password:")
+                .setView(taskEditText)
+                .setPositiveButton("Change", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String pass = String.valueOf(taskEditText.getText());
+                        updateAcc(pass);
+                    }
+                })
+                .setNegativeButton("Back", null)
+                .create();
+        dialog.show();
+    }
 
+    private void updateAcc(String pass){
         if(pass.isEmpty()){
             Toast.makeText(getActivity(), "Do not leave empty", Toast.LENGTH_SHORT).show();
         }
