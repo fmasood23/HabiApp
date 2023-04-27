@@ -3,6 +3,7 @@ package edu.sjsu.android.habiteamproject;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -79,9 +80,15 @@ public class SettingFragment extends Fragment {
         if(pass.isEmpty()){
             Toast.makeText(getActivity(), "Do not leave empty", Toast.LENGTH_SHORT).show();
         }
-        String[] vals = {pass, getUsername()};
 
-        getActivity().getContentResolver().update(HabiProvider.CONTENT_URI, null, null, vals);
-
+        try {
+            ContentValues contentValues = new ContentValues();
+            contentValues.put("password", pass);
+            getActivity().getContentResolver().update(HabiProvider.CONTENT_URI, contentValues, getUsername(), null);
+            Toast.makeText(getActivity(), "Password changed", Toast.LENGTH_SHORT).show();
+        }
+        catch(SQLiteException e){
+            Toast.makeText(getActivity(), "Password couldn't be changed", Toast.LENGTH_SHORT).show();
+        }
     }
 }

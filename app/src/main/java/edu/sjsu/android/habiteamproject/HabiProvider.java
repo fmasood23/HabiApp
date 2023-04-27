@@ -132,7 +132,7 @@ public class HabiProvider extends ContentProvider {
                       String[] selectionArgs) {
         switch (uriMatcher.match(uri)) {
             case 100:
-                if (db.updateAcc(selectionArgs[0], selectionArgs[1])) {
+                if (db.updateAcc(values, selection)) {
                     return 1;
                 }
             case 300:

@@ -181,20 +181,17 @@ public class HabiDB extends SQLiteOpenHelper {
         return true;
     }
 
-    //TODO: refactor
     public boolean defaultFalse() {
         SQLiteDatabase database = getWritableDatabase();
-        String qu="UPDATE "+ TABLE_NAME_CURRENT + " SET "+logged_in+" = "+ "\"false\""+";";
-        database.execSQL(qu);
+        ContentValues values = new ContentValues();
+        values.put(logged_in, "false");
+        database.update(TABLE_NAME_CURRENT, values, null, null);
         return true;
     }
 
-    //TODO: refactor
-    public boolean updateAcc(String pass, String user) {
+    public boolean updateAcc(ContentValues contentValues, String user) {
         SQLiteDatabase database = getWritableDatabase();
-        //database.update(TABLE_NAME, contentValues, "username = ?", new String[] {user});
-        String qu="UPDATE "+ TABLE_NAME + " SET "+passWord+" = "+ '"' +pass + '"' +" WHERE username = "+ '"' +user+ '"' +";";
-        database.execSQL(qu);
+        database.update(TABLE_NAME, contentValues, "username = ?", new String[] {user});
         return true;
     }
 
