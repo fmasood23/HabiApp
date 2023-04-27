@@ -113,11 +113,13 @@ public class HabiDB extends SQLiteOpenHelper {
         return database.insertOrThrow(table, null, contentValues);
     }
 
-    public Cursor getAllDate(String orderBy) {
+    public Cursor getAllDates(String user) {
         SQLiteDatabase database = getWritableDatabase();
+        String where = "username = ?";
+        String[] whereArgs = new String[] {user};
         return database.query(TABLE_NAME_CALENDAR,
                 new String[]{userName_calendar, date, title},
-                null, null, null, null, orderBy);
+                where, whereArgs, null, null, null);
     }
 
     public Cursor getAllItems() {
@@ -127,34 +129,51 @@ public class HabiDB extends SQLiteOpenHelper {
                 null, null, null, null, null);
     }
 
-    public Cursor getAllDates(String user) {
-        SQLiteDatabase database = getWritableDatabase();
-        return database.rawQuery("SELECT * FROM calendar WHERE username = " + '"' + user + '"' + ";", null);
-    }
-
     public Cursor getAllWater(String user) {
         SQLiteDatabase database = getWritableDatabase();
         String currentTime = Calendar.getInstance().getTime().toString();
         String[] current = currentTime.split(" ");
         String newCurrent = current[0] + " " + current[1] + " " + current[2];
 
-        return database.rawQuery("SELECT count FROM water WHERE username = " + '"' + user + '"' + "AND date = " +'"' + newCurrent + '"' + ";", null);
+        String where = "username = ? AND date = ?";
+        String[] whereArgs = new String[] {user, newCurrent};
+
+        return database.query(TABLE_NAME_WATER,
+                new String[]{count},
+                where, whereArgs, null, null, null);
     }
+
 
     public Cursor getLogin(String user) {
         SQLiteDatabase database = getWritableDatabase();
-        return database.rawQuery("SELECT password FROM login WHERE username = " + '"' + user + '"' + ";", null);
+        String where = "username = ?";
+        String[] whereArgs = new String[] {user};
+        return database.query(TABLE_NAME,
+                new String[]{passWord},
+                where, whereArgs, null, null, null);
     }
 
     public Cursor getUser() {
         SQLiteDatabase database = getWritableDatabase();
-        return database.rawQuery("SELECT username FROM current WHERE logged_in = 'true';", null);
+        //return database.rawQuery("SELECT username FROM current WHERE logged_in = 'true';", null);
+        String where = "logged_in = ?";
+        String[] whereArgs = new String[] {"true"};
+        return database.query(TABLE_NAME_CURRENT,
+                new String[]{userName},
+                where, whereArgs, null, null, null);
     }
 
     public Cursor getNumSleep(String user) {
         SQLiteDatabase database = getWritableDatabase();
-        return database.rawQuery("SELECT num_hours FROM sleep WHERE username = " + '"' + user + '"' + ";", null);
+        String where = "username = ?";
+        String[] whereArgs = new String[] {user};
+
+        return database.query(TABLE_NAME_SLEEP,
+                new String[]{num_Hours},
+                where, whereArgs, null, null, null);
+
     }
+
 
     public boolean updateLogin(ContentValues contentValues, String user) {
         SQLiteDatabase database = getWritableDatabase();
@@ -162,6 +181,7 @@ public class HabiDB extends SQLiteOpenHelper {
         return true;
     }
 
+    //TODO: refactor
     public boolean defaultFalse() {
         SQLiteDatabase database = getWritableDatabase();
         String qu="UPDATE "+ TABLE_NAME_CURRENT + " SET "+logged_in+" = "+ "\"false\""+";";
@@ -169,6 +189,7 @@ public class HabiDB extends SQLiteOpenHelper {
         return true;
     }
 
+    //TODO: refactor
     public boolean updateAcc(String pass, String user) {
         SQLiteDatabase database = getWritableDatabase();
         //database.update(TABLE_NAME, contentValues, "username = ?", new String[] {user});
