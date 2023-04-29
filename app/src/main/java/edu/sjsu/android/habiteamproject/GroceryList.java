@@ -1,5 +1,9 @@
 package edu.sjsu.android.habiteamproject;
 
+import android.app.AlertDialog;
+import android.content.ContentValues;
+import android.content.DialogInterface;
+import android.database.Cursor;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,58 +11,129 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.Toast;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link GroceryList#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.ArrayList;
+
+
 public class GroceryList extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private ListView list;
+    private ArrayAdapter<String> mAdapter;
 
     public GroceryList() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment GroceryList.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static GroceryList newInstance(String param1, String param2) {
-        GroceryList fragment = new GroceryList();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_grocery_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_grocery_list, container, false);
+        list = (ListView) view.findViewById(R.id.list_grocery);
+        view.findViewById(R.id.add_grocery).setOnClickListener(this::add);
+        view.findViewById(R.id.delete_grocery).setOnClickListener(this::delete);
+        populateList();
+        return view;
+    }
+
+    public void add(View v) {
+        final EditText taskEditText = new EditText(getContext());
+        AlertDialog dialog = new AlertDialog.Builder(getContext())
+                .setTitle("Add a new Grocery Item:")
+                .setMessage("What is your grocery item?")
+                .setView(taskEditText)
+                .setPositiveButton("Add Item", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String task = String.valueOf(taskEditText.getText());
+                        insert(task);
+                        populateList();
+                    }
+                })
+                .setNegativeButton("Back", null)
+                .create();
+        dialog.show();
+    }
+
+    private void populateList() {
+        ArrayList<String> grocery_list = new ArrayList<>();
+
+        if(getItems()!=null) {
+            for (String i : getItems()) {
+                grocery_list.add(i);
+            }
+        }
+
+        if (mAdapter == null) {
+            mAdapter = new ArrayAdapter<>(getActivity(),
+                    R.layout.item,
+                    R.id.task_title,
+                    grocery_list);
+            list.setAdapter(mAdapter);
+        } else {
+            mAdapter.clear();
+            mAdapter.addAll(grocery_list);
+            mAdapter.notifyDataSetChanged();
+        }
+    }
+
+    public String getUsername() {
+        UserManager currentUser = new UserManager();
+        return currentUser.getUsername(getActivity());
+    }
+
+    public ArrayList<String> getItems() {
+        ArrayList<String> items = new ArrayList<>();
+        try (Cursor c = getActivity().getContentResolver().query(HabiProvider.CONTENT_URI_GROCERY, null, null, null, null)) {
+            if (c.moveToFirst()) {
+                do {
+                    if(c.getString(0).equals(getUsername())) {
+                        items.add(c.getString(1));
+                    }
+                } while (c.moveToNext());
+                return items;
+            } else {
+                return null;
+            }
+        }
+    }
+
+    public void insert(String grocery){
+        try{
+            if(grocery.isEmpty()){
+                Toast.makeText(getActivity(), "Field is required", Toast.LENGTH_SHORT).show();
+            }
+            ContentValues contentValues = new ContentValues();
+            contentValues.put("username", getUsername());
+            contentValues.put("item", grocery);
+
+            getActivity().getContentResolver().insert(HabiProvider.CONTENT_URI_GROCERY, contentValues);
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            Toast.makeText(getActivity(), "error", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void delete(View v){
+        try{
+            getActivity().getContentResolver().delete(HabiProvider.CONTENT_URI_GROCERY, getUsername(), null);
+            populateList();
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            Toast.makeText(getActivity(), "error", Toast.LENGTH_SHORT).show();
+        }
     }
 }

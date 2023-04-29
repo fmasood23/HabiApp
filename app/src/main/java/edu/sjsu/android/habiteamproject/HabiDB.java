@@ -83,6 +83,16 @@ public class HabiDB extends SQLiteOpenHelper {
                     " ("+ userName_to_do + " TEXT NOT NULL, "
                     + content + " TEXT NOT NULL);";
 
+    public static final String TABLE_NAME_GROCERY = "grocery";
+
+    private static final String userName_grocery = "username";
+    private static final String grocery_item = "item";
+
+    static final String CREATE_TABLE_GROCERY =
+            " CREATE TABLE " + TABLE_NAME_GROCERY +
+                    " ("+ userName_grocery + " TEXT NOT NULL, "
+                    + grocery_item + " TEXT NOT NULL);";
+
     public HabiDB(@Nullable Context context) {
         super(context, DATABASE_NAME, null, VERSION);
     }
@@ -95,6 +105,7 @@ public class HabiDB extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(CREATE_TABLE_CALENDAR);
         sqLiteDatabase.execSQL(CREATE_TABLE_WATER);
         sqLiteDatabase.execSQL(CREATE_TABLE_TO_DO);
+        sqLiteDatabase.execSQL(CREATE_TABLE_GROCERY);
     }
 
     @Override
@@ -105,6 +116,7 @@ public class HabiDB extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_CALENDAR);
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_WATER);
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_TO_DO);
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_GROCERY);
         onCreate(sqLiteDatabase);
     }
 
@@ -129,6 +141,12 @@ public class HabiDB extends SQLiteOpenHelper {
                 null, null, null, null, null);
     }
 
+    public Cursor getAllGroceries() {
+        SQLiteDatabase database = getWritableDatabase();
+        return database.query(TABLE_NAME_GROCERY,
+                new String[]{userName_to_do, grocery_item},
+                null, null, null, null, null);
+    }
     public Cursor getAllWater(String user) {
         SQLiteDatabase database = getWritableDatabase();
         String currentTime = Calendar.getInstance().getTime().toString();
@@ -142,7 +160,6 @@ public class HabiDB extends SQLiteOpenHelper {
                 new String[]{count},
                 where, whereArgs, null, null, null);
     }
-
 
     public Cursor getLogin(String user) {
         SQLiteDatabase database = getWritableDatabase();
@@ -198,6 +215,12 @@ public class HabiDB extends SQLiteOpenHelper {
     public int delete_to_do(String user){
         SQLiteDatabase database = getWritableDatabase();
         return database.delete(TABLE_NAME_TO_DO, userName_to_do + " = ?",
+                new String[]{user});
+    }
+
+    public int delete_grocery(String user){
+        SQLiteDatabase database = getWritableDatabase();
+        return database.delete(TABLE_NAME_GROCERY, userName_grocery + " = ?",
                 new String[]{user});
     }
 }

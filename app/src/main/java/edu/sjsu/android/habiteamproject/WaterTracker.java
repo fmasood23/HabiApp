@@ -65,21 +65,8 @@ public class WaterTracker extends Fragment {
     }
 
     public String getUsername() {
-        try (Cursor c = getActivity().getContentResolver().
-                query(HabiProvider.CONTENT_URI_CURRENT, null, null, null, null)) {
-            if (c.moveToFirst()) {
-                String result = "";
-                do {
-                    for (int i = 0; i < c.getColumnCount(); i++) {
-                        result = result.concat
-                                (c.getString(i));
-                    }
-                } while (c.moveToNext());
-                return result;
-            } else {
-                return null;
-            }
-        }
+        UserManager currentUser = new UserManager();
+        return currentUser.getUsername(getActivity());
     }
 
     public int getWaterTotal() {

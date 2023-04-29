@@ -24,6 +24,8 @@ public class HabiProvider extends ContentProvider {
 
     public static final Uri CONTENT_URI_TO_DO = Uri.parse("content://" + AUTHORITY + "/todo");
 
+    public static final Uri CONTENT_URI_GROCERY = Uri.parse("content://" + AUTHORITY + "/grocery");
+
     private static final UriMatcher uriMatcher;
     static {
         uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
@@ -33,6 +35,7 @@ public class HabiProvider extends ContentProvider {
         uriMatcher.addURI(AUTHORITY, "calendar", 400);
         uriMatcher.addURI(AUTHORITY, "water", 500);
         uriMatcher.addURI(AUTHORITY, "todo", 600);
+        uriMatcher.addURI(AUTHORITY, "grocery", 700);
     }
 
     public HabiProvider() {
@@ -96,6 +99,15 @@ public class HabiProvider extends ContentProvider {
                     getContext().getContentResolver().notifyChange(_uri, null);
                     return _uri;
                 }
+
+            case 700:
+                long rowID7 = db.insert(HabiDB.TABLE_NAME_GROCERY, values);
+                //If record is added successfully
+                if (rowID7 > 0) {
+                    _uri = ContentUris.withAppendedId(uri, rowID7);
+                    getContext().getContentResolver().notifyChange(_uri, null);
+                    return _uri;
+                }
                 //throw new SQLException("Failed to add a record into " + uri);
         }
         return _uri;
@@ -123,6 +135,8 @@ public class HabiProvider extends ContentProvider {
                 return db.getAllWater(selection);
             case 600:
                 return db.getAllItems();
+            case 700:
+                return db.getAllGroceries();
         }
         return null;
     }
@@ -157,6 +171,13 @@ public class HabiProvider extends ContentProvider {
                 if (deleted >= 0) {
                     getContext().getContentResolver().notifyChange(uri, null);
                     return deleted;
+                }
+
+            case 700:
+                int deleted1 = db.delete_grocery(selection);
+                if (deleted1 >= 0) {
+                    getContext().getContentResolver().notifyChange(uri, null);
+                    return deleted1;
                 }
 
         }
