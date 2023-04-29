@@ -6,7 +6,14 @@
     <string name="username">Username</string>
     <string name="temp">Hello</string>
     <string name="back">Back</string>
-    <!-- TODO: Remove or change this placeholder text -->
+    <string name="about">Habi was created to provide a quick and easy way to plan your daily life.
+        Habi contains several features to make this a reality for our users. \n \n \nOur features include: \n \n 1. Sleep Tracker: Enter the amount of sleep you receive and
+        the app will provide an average amount of sleep you get. \n \n
+        2. Water tracker: Drink a glass of water and click the button to add a glass of water. This can allow
+        you to stay on track of your water intake. \n \n
+        3. To-do list: A to do list is essential in planning tasks to complete. This can help manage your day to day life. \n \n
+        4. Calendar app: Add events and view the events added! \n \n
+    </string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
