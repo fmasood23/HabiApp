@@ -4,17 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/teal"
+    android:background="@drawable/loginpage"
     tools:context=".MainActivity">
 
     <EditText
         android:id="@+id/user"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/ten"
-        android:layout_marginTop="@dimen/biggest"
-        android:layout_marginEnd="@dimen/ten"
+        android:layout_marginTop="170dp"
         android:hint="@string/username"
+        android:layout_marginStart="70dp"
+        android:layout_marginEnd="70dp"
         android:inputType="textEmailAddress" />
 
     <EditText
@@ -22,9 +22,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/user"
-        android:layout_marginStart="@dimen/ten"
-        android:layout_marginTop="@dimen/twenty"
-        android:layout_marginEnd="@dimen/ten"
+        android:layout_marginStart="70dp"
+        android:layout_marginEnd="70dp"
         android:hint="@string/password"
         android:inputType="textPassword" />
     <Button
@@ -32,9 +31,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/pass"
-        android:layout_marginStart="@dimen/ten"
-        android:layout_marginTop="@dimen/twenty"
-        android:layout_marginEnd="@dimen/ten"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="155dp"
+        android:layout_marginEnd="155dp"
         android:text="@string/login"
         android:textAllCaps="false" />
 
@@ -43,9 +42,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/login"
-        android:layout_marginStart="@dimen/ten"
-        android:layout_marginTop="@dimen/twenty"
-        android:layout_marginEnd="@dimen/ten"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="155dp"
+        android:layout_marginEnd="155dp"
         android:text="@string/sign_up"
         android:textAllCaps="false" />
 
