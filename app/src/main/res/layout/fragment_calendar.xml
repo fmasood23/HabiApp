@@ -8,7 +8,29 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/peach"
     tools:context=".CalendarFragment">
+
+    <TextView
+        android:id="@+id/title_calendar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Calendar"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textSize="30sp"
+        android:layout_margin="20dp"
+        />
+
+    <TextView
+        android:id="@+id/instruction_calendar"
+        android:text="Fill out the fields and scroll below to add and view events!"
+        android:textAlignment="center"
+        android:layout_margin="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title_calendar" />
 
     <CalendarView
         android:id="@+id/calendarView"
@@ -70,7 +92,7 @@
         app:layout_constraintBottom_toTopOf="@+id/calendarView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/instruction_calendar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
