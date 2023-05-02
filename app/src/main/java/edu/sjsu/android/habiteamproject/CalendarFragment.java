@@ -115,7 +115,6 @@ public class CalendarFragment extends Fragment {
 
 
     public void getAllDates(View view) {
-        // Sort by student name
         date.setText("No events added \n");
         try (Cursor c = getActivity().getContentResolver().query(HabiProvider.CONTENT_URI_CALENDAR, null, getUsername(), null, null)) {
             if (c.moveToFirst()) {
