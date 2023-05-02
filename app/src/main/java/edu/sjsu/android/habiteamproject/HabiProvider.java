@@ -166,6 +166,24 @@ public class HabiProvider extends ContentProvider {
     @Override
     public int delete(Uri uri, String selection, String[] selectionArgs) {
         switch (uriMatcher.match(uri)) {
+            case 200:
+                int deleted2 = db.delete_sleep(selection);
+                if (deleted2 >= 0) {
+                    getContext().getContentResolver().notifyChange(uri, null);
+                    return deleted2;
+                }
+            case 400:
+                int deleted3 = db.delete_calendar(selection);
+                if (deleted3 >= 0) {
+                    getContext().getContentResolver().notifyChange(uri, null);
+                    return deleted3;
+                }
+            case 500:
+                int deleted4 = db.delete_water(selection);
+                if (deleted4 >= 0) {
+                    getContext().getContentResolver().notifyChange(uri, null);
+                    return deleted4;
+                }
             case 600:
                 int deleted = db.delete_to_do(selection);
                 if (deleted >= 0) {

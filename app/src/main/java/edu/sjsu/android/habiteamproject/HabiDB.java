@@ -218,6 +218,24 @@ public class HabiDB extends SQLiteOpenHelper {
                 new String[]{user});
     }
 
+    public int delete_calendar(String user){
+        SQLiteDatabase database = getWritableDatabase();
+        return database.delete(TABLE_NAME_CALENDAR, userName_calendar + " = ?",
+                new String[]{user});
+    }
+
+    public int delete_water(String user){
+        SQLiteDatabase database = getWritableDatabase();
+        return database.delete(TABLE_NAME_WATER, userName_water + " = ?",
+                new String[]{user});
+    }
+
+    public int delete_sleep(String user){
+        SQLiteDatabase database = getWritableDatabase();
+        return database.delete(TABLE_NAME_SLEEP, userName_sleep + " = ?",
+                new String[]{user});
+    }
+
     public int delete_grocery(String user){
         SQLiteDatabase database = getWritableDatabase();
         return database.delete(TABLE_NAME_GROCERY, userName_grocery + " = ?",

@@ -50,6 +50,7 @@ public class CalendarFragment extends Fragment {
         date = view.findViewById(R.id.get_date);
         dateTitle = view.findViewById(R.id.enter_title);
         calendarView = view.findViewById(R.id.calendarView);
+        view.findViewById(R.id.reset).setOnClickListener(this::delete);
 
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
@@ -89,7 +90,18 @@ public class CalendarFragment extends Fragment {
                 contentValues.put("title", dateTitle.getText().toString());
 
                 getActivity().getContentResolver().insert(HabiProvider.CONTENT_URI_CALENDAR, contentValues);
+                Toast.makeText(getActivity(), "Date added", Toast.LENGTH_SHORT).show();
             }
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(getActivity(), "error", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void delete(View v){
+        try {
+            getActivity().getContentResolver().delete(HabiProvider.CONTENT_URI_CALENDAR, getUsername(), null);
+            date.setText("No events added \n");
         } catch (Exception e) {
             e.printStackTrace();
             Toast.makeText(getActivity(), "error", Toast.LENGTH_SHORT).show();
@@ -104,6 +116,7 @@ public class CalendarFragment extends Fragment {
 
     public void getAllDates(View view) {
         // Sort by student name
+        date.setText("No events added \n");
         try (Cursor c = getActivity().getContentResolver().query(HabiProvider.CONTENT_URI_CALENDAR, null, getUsername(), null, null)) {
             if (c.moveToFirst()) {
                 String result = "All Dates: \n";

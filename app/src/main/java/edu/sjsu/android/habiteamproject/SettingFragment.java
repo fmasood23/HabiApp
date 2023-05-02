@@ -39,9 +39,36 @@ public class SettingFragment extends Fragment {
         //onclick listener for sign out
         view.findViewById(R.id.signout).setOnClickListener(v -> signOut());
         view.findViewById(R.id.change_pass).setOnClickListener(this::add);
+        view.findViewById(R.id.reset_user).setOnClickListener(this::reset_acc);
 
         return view;
 
+    }
+
+    public void reset_acc(View v){
+        AlertDialog dialog = new AlertDialog.Builder(getContext())
+                .setTitle("Warning!")
+                .setMessage("This will clear all user history. Would you like to proceed?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        try{
+                            String user = getUsername();
+                            getActivity().getContentResolver().delete(HabiProvider.CONTENT_URI_WATER, user, null);
+                            getActivity().getContentResolver().delete(HabiProvider.CONTENT_URI_TO_DO, user, null);
+                            getActivity().getContentResolver().delete(HabiProvider.CONTENT_URI_SLEEP, user, null);
+                            getActivity().getContentResolver().delete(HabiProvider.CONTENT_URI_GROCERY, user, null);
+                            getActivity().getContentResolver().delete(HabiProvider.CONTENT_URI_CALENDAR, user, null);
+
+                            Toast.makeText(getActivity(), "User Data was deleted", Toast.LENGTH_SHORT).show();
+                        } catch (SQLiteException e){
+                            Toast.makeText(getActivity(), "History was not erased", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                })
+                .setNegativeButton("No", null)
+                .create();
+        dialog.show();
     }
 
     public String getUsername() {

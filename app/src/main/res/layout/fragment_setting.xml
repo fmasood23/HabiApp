@@ -25,4 +25,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/signout" />
 
+    <Button
+        android:id="@+id/reset_user"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Reset User Account"
+        android:layout_marginTop="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/change_pass" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
