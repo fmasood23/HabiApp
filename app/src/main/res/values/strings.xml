@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">HaBiTeamProject</string>
+    <string name="app_name">HaBi</string>
     <string name="sign_up">Sign Up</string>
     <string name="login">Login</string>
     <string name="password">Password</string>
