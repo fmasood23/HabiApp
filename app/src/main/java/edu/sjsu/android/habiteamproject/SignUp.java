@@ -12,6 +12,9 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class SignUp extends AppCompatActivity {
 
     private HabiDB database;
@@ -46,6 +49,13 @@ public class SignUp extends AppCompatActivity {
         }
         else {
             try{
+                String mail_regex = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^-]+(?:\\.[a-zA-Z0-9_!#$%&'*+/=?`{|}~^-]+)*@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$";
+                Pattern p = Pattern.compile(mail_regex);
+                Matcher m = p.matcher(mail);
+                if(!m.matches()){
+                    Toast.makeText(SignUp.this, "Invalid Email", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 //database.insertLogin(user, pass, mail);
                 ContentValues contentValues = new ContentValues();
                 contentValues.put("username", user);
