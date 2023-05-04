@@ -12,9 +12,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/ten"
-        android:layout_marginTop="@dimen/twenty"
+        android:layout_marginTop="@dimen/ten"
         android:layout_marginEnd="@dimen/ten"
-        android:text="Create an Account!"
+        android:text="Welcome to HaBi!"
         android:textSize="30sp"
         android:textAlignment="center"
         />
@@ -25,9 +25,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/create_acc"
         android:layout_marginStart="@dimen/ten"
-        android:layout_marginTop="@dimen/twenty"
+        android:layout_marginTop="5dp"
         android:layout_marginEnd="@dimen/ten"
-        android:text="Fill out the required fields below and then click sign up!"
+        android:text="Fill out the required fields and click sign up to create an account!"
         android:textAlignment="center"
         />
 
