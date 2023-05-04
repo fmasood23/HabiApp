@@ -3,10 +3,7 @@ package edu.sjsu.android.habiteamproject;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.sqlite.SQLiteConstraintException;
-import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -17,14 +14,10 @@ import java.util.regex.Pattern;
 
 public class SignUp extends AppCompatActivity {
 
-    private HabiDB database;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.signup);
-
-        database = new HabiDB(this);
 
         findViewById(R.id.create_account).setOnClickListener(v -> insertNewAccount());
         findViewById(R.id.back).setOnClickListener(v -> backNav());
@@ -49,7 +42,7 @@ public class SignUp extends AppCompatActivity {
         }
         else {
             try{
-                String mail_regex = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^-]+(?:\\.[a-zA-Z0-9_!#$%&'*+/=?`{|}~^-]+)*@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$";
+                String mail_regex = getString(R.string.regex);
                 Pattern p = Pattern.compile(mail_regex);
                 Matcher m = p.matcher(mail);
                 if(!m.matches()){

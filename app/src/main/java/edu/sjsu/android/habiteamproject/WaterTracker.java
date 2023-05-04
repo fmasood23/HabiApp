@@ -26,9 +26,6 @@ public class WaterTracker extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-
-        }
     }
 
     @Override
@@ -38,15 +35,16 @@ public class WaterTracker extends Fragment {
         View view =  inflater.inflate(R.layout.fragment_water_tracker, container, false);
 
         total = view.findViewById(R.id.water_total);
-        total.setText("You drank " + String.valueOf(getWaterTotal()) + " glasses of water today.");
+        String set = "You drank " + getWaterTotal() + " glasses of water today.";
+        total.setText(set);
 
         view.findViewById(R.id.submit_water).setOnClickListener(this::add);
 
         return view;
     }
 
-    public void add(View v){
-        try{
+    public void add(View v) {
+        try {
             String currentTime = Calendar.getInstance().getTime().toString();
             String[] current = currentTime.split(" ");
             String newCurrent = current[0] + " " + current[1] + " " + current[2];
@@ -55,13 +53,13 @@ public class WaterTracker extends Fragment {
             contentValues.put("date", newCurrent);
             contentValues.put("count", 1);
 
-            getActivity().getContentResolver().insert(HabiProvider.CONTENT_URI_WATER, contentValues);
-        }
-        catch(Exception e){
+            requireActivity().getContentResolver().insert(HabiProvider.CONTENT_URI_WATER, contentValues);
+        } catch (Exception e) {
             e.printStackTrace();
             Toast.makeText(getActivity(), "error", Toast.LENGTH_SHORT).show();
         }
-        total.setText("You drank " + String.valueOf(getWaterTotal()) + " glasses of water today.");
+        String set = "You drank " + getWaterTotal() + " glasses of water today.";
+        total.setText(set);
     }
 
     public String getUsername() {
@@ -70,7 +68,7 @@ public class WaterTracker extends Fragment {
     }
 
     public int getWaterTotal() {
-        try (Cursor c = getActivity().getContentResolver().
+        try (Cursor c = requireActivity().getContentResolver().
                 query(HabiProvider.CONTENT_URI_WATER, null, getUsername(), null, null)) {
             if (c.moveToFirst()) {
                 int result = 0;

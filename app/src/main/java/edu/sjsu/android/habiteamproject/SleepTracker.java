@@ -2,12 +2,10 @@ package edu.sjsu.android.habiteamproject;
 
 import android.content.ContentValues;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteConstraintException;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
-import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,8 +26,6 @@ public class SleepTracker extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-        }
     }
 
     @Override
@@ -40,7 +36,8 @@ public class SleepTracker extends Fragment {
         sleepInput = view.findViewById(R.id.enter_sleep);
         setAvg = view.findViewById(R.id.sleep_average);
 
-        setAvg.setText("You sleep an average of " + Double.toString(getNumSleep()) + " hours a night.");
+        String set = "You sleep an average of " + getNumSleep() + " hours a night.";
+        setAvg.setText(set);
 
         //onclick listener for submit
         view.findViewById(R.id.submit_sleep).setOnClickListener(this::setSleep);
@@ -60,15 +57,14 @@ public class SleepTracker extends Fragment {
             ContentValues contentValues = new ContentValues();
             contentValues.put("username", getUsername());
             contentValues.put("num_hours", inputted_hours);
-            getActivity().getContentResolver().insert(HabiProvider.CONTENT_URI_SLEEP, contentValues);
+            requireActivity().getContentResolver().insert(HabiProvider.CONTENT_URI_SLEEP, contentValues);
         }
         catch(Exception e){
             e.printStackTrace();
             Toast.makeText(getActivity(), "error", Toast.LENGTH_SHORT).show();
         }
-
-        setAvg.setText("You sleep an average of " + Double.toString(getNumSleep()) + " hours a night.");
-
+        String set = "You sleep an average of " + getNumSleep() + " hours a night.";
+        setAvg.setText(set);
     }
 
     public String getUsername() {
@@ -78,7 +74,7 @@ public class SleepTracker extends Fragment {
 
     public double getNumSleep() {
         int count = 0;
-        try (Cursor c = getActivity().getContentResolver().
+        try (Cursor c = requireActivity().getContentResolver().
                 query(HabiProvider.CONTENT_URI_SLEEP, null, getUsername(), null, null)) {
             if (c.moveToFirst()) {
                 double result = 0;
@@ -90,8 +86,7 @@ public class SleepTracker extends Fragment {
                 } while (c.moveToNext());
                 double avg = result/count;
                 int casted = (int)(avg*100.0);
-                double two_dec = ((double)casted)/100.0;
-                return two_dec;
+                return ((double)casted)/100.0;
             } else {
                 return 0;
             }

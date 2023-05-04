@@ -2,7 +2,6 @@ package edu.sjsu.android.habiteamproject;
 
 import android.app.AlertDialog;
 import android.content.ContentValues;
-import android.content.DialogInterface;
 import android.database.Cursor;
 import android.os.Bundle;
 
@@ -32,8 +31,6 @@ public class GroceryList extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-        }
     }
 
     @Override
@@ -53,13 +50,10 @@ public class GroceryList extends Fragment {
                 .setTitle("Add a new Grocery Item:")
                 .setMessage("What is your grocery item?")
                 .setView(taskEditText)
-                .setPositiveButton("Add Item", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        String task = String.valueOf(taskEditText.getText());
-                        insert(task);
-                        populateList();
-                    }
+                .setPositiveButton("Add Item", (dialog1, which) -> {
+                    String task = String.valueOf(taskEditText.getText());
+                    insert(task);
+                    populateList();
                 })
                 .setNegativeButton("Back", null)
                 .create();
@@ -70,9 +64,7 @@ public class GroceryList extends Fragment {
         ArrayList<String> grocery_list = new ArrayList<>();
 
         if(getItems()!=null) {
-            for (String i : getItems()) {
-                grocery_list.add(i);
-            }
+            grocery_list.addAll(getItems());
         }
 
         if (mAdapter == null) {
@@ -95,7 +87,7 @@ public class GroceryList extends Fragment {
 
     public ArrayList<String> getItems() {
         ArrayList<String> items = new ArrayList<>();
-        try (Cursor c = getActivity().getContentResolver().query(HabiProvider.CONTENT_URI_GROCERY, null, null, null, null)) {
+        try (Cursor c = requireActivity().getContentResolver().query(HabiProvider.CONTENT_URI_GROCERY, null, null, null, null)) {
             if (c.moveToFirst()) {
                 do {
                     if(c.getString(0).equals(getUsername())) {
@@ -118,7 +110,7 @@ public class GroceryList extends Fragment {
             contentValues.put("username", getUsername());
             contentValues.put("item", grocery);
 
-            getActivity().getContentResolver().insert(HabiProvider.CONTENT_URI_GROCERY, contentValues);
+            requireActivity().getContentResolver().insert(HabiProvider.CONTENT_URI_GROCERY, contentValues);
         }
         catch(Exception e){
             e.printStackTrace();
@@ -128,7 +120,7 @@ public class GroceryList extends Fragment {
 
     public void delete(View v){
         try{
-            getActivity().getContentResolver().delete(HabiProvider.CONTENT_URI_GROCERY, getUsername(), null);
+            requireActivity().getContentResolver().delete(HabiProvider.CONTENT_URI_GROCERY, getUsername(), null);
             populateList();
         }
         catch(Exception e){

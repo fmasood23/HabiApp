@@ -5,7 +5,6 @@ import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.UriMatcher;
 import android.database.Cursor;
-import android.database.SQLException;
 import android.net.Uri;
 
 public class HabiProvider extends ContentProvider {
@@ -49,7 +48,7 @@ public class HabiProvider extends ContentProvider {
 
     @Override
     public Uri insert(Uri uri, ContentValues values) {
-        Uri _uri = null;
+        Uri _uri;
         switch (uriMatcher.match(uri)) {
             case 100:
                 long rowID = db.insert(HabiDB.TABLE_NAME, values);
@@ -110,7 +109,7 @@ public class HabiProvider extends ContentProvider {
                 }
                 //throw new SQLException("Failed to add a record into " + uri);
         }
-        return _uri;
+        return null;
     }
 
     @Override

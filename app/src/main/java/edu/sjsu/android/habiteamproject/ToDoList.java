@@ -2,28 +2,20 @@ package edu.sjsu.android.habiteamproject;
 
 import android.app.AlertDialog;
 import android.content.ContentValues;
-import android.content.DialogInterface;
 import android.database.Cursor;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 
 public class ToDoList extends Fragment {
     
@@ -37,8 +29,6 @@ public class ToDoList extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-        }
     }
 
     @Override
@@ -59,13 +49,10 @@ public class ToDoList extends Fragment {
                 .setTitle("Add a new To-Do Item:")
                 .setMessage("What is your to-do item?")
                 .setView(taskEditText)
-                .setPositiveButton("Add Item", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        String task = String.valueOf(taskEditText.getText());
-                        insert(task);
-                        populateList();
-                    }
+                .setPositiveButton("Add Item", (dialog1, which) -> {
+                    String task = String.valueOf(taskEditText.getText());
+                    insert(task);
+                    populateList();
                 })
                 .setNegativeButton("Back", null)
                 .create();
@@ -76,9 +63,7 @@ public class ToDoList extends Fragment {
         ArrayList<String> to_do_list = new ArrayList<>();
 
         if(getItems()!=null) {
-            for (String i : getItems()) {
-                to_do_list.add(i);
-            }
+            to_do_list.addAll(getItems());
         }
 
         if (mAdapter == null) {
@@ -101,7 +86,7 @@ public class ToDoList extends Fragment {
 
     public ArrayList<String> getItems() {
         ArrayList<String> items = new ArrayList<>();
-        try (Cursor c = getActivity().getContentResolver().query(HabiProvider.CONTENT_URI_TO_DO, null, null, null, null)) {
+        try (Cursor c = requireActivity().getContentResolver().query(HabiProvider.CONTENT_URI_TO_DO, null, null, null, null)) {
             if (c.moveToFirst()) {
                 do {
                     if(c.getString(0).equals(getUsername())) {
@@ -124,7 +109,7 @@ public class ToDoList extends Fragment {
             contentValues.put("username", getUsername());
             contentValues.put("content", content);
 
-            getActivity().getContentResolver().insert(HabiProvider.CONTENT_URI_TO_DO, contentValues);
+            requireActivity().getContentResolver().insert(HabiProvider.CONTENT_URI_TO_DO, contentValues);
         }
         catch(Exception e){
             e.printStackTrace();
@@ -134,7 +119,7 @@ public class ToDoList extends Fragment {
 
     public void delete(View v){
         try{
-            getActivity().getContentResolver().delete(HabiProvider.CONTENT_URI_TO_DO, getUsername(), null);
+            requireActivity().getContentResolver().delete(HabiProvider.CONTENT_URI_TO_DO, getUsername(), null);
             populateList();
         }
         catch(Exception e){

@@ -2,9 +2,7 @@ package edu.sjsu.android.habiteamproject;
 
 import android.app.AlertDialog;
 import android.content.ContentValues;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
 
@@ -13,7 +11,6 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -26,8 +23,6 @@ public class SettingFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-        }
     }
 
     @Override
@@ -49,21 +44,18 @@ public class SettingFragment extends Fragment {
         AlertDialog dialog = new AlertDialog.Builder(getContext())
                 .setTitle("Warning!")
                 .setMessage("This will clear all user history. Would you like to proceed?")
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        try{
-                            String user = getUsername();
-                            getActivity().getContentResolver().delete(HabiProvider.CONTENT_URI_WATER, user, null);
-                            getActivity().getContentResolver().delete(HabiProvider.CONTENT_URI_TO_DO, user, null);
-                            getActivity().getContentResolver().delete(HabiProvider.CONTENT_URI_SLEEP, user, null);
-                            getActivity().getContentResolver().delete(HabiProvider.CONTENT_URI_GROCERY, user, null);
-                            getActivity().getContentResolver().delete(HabiProvider.CONTENT_URI_CALENDAR, user, null);
+                .setPositiveButton("Yes", (dialog1, which) -> {
+                    try{
+                        String user = getUsername();
+                        requireActivity().getContentResolver().delete(HabiProvider.CONTENT_URI_WATER, user, null);
+                        requireActivity().getContentResolver().delete(HabiProvider.CONTENT_URI_TO_DO, user, null);
+                        requireActivity().getContentResolver().delete(HabiProvider.CONTENT_URI_SLEEP, user, null);
+                        requireActivity().getContentResolver().delete(HabiProvider.CONTENT_URI_GROCERY, user, null);
+                        requireActivity().getContentResolver().delete(HabiProvider.CONTENT_URI_CALENDAR, user, null);
 
-                            Toast.makeText(getActivity(), "User Data was deleted", Toast.LENGTH_SHORT).show();
-                        } catch (SQLiteException e){
-                            Toast.makeText(getActivity(), "History was not erased", Toast.LENGTH_SHORT).show();
-                        }
+                        Toast.makeText(getActivity(), "User Data was deleted", Toast.LENGTH_SHORT).show();
+                    } catch (SQLiteException e){
+                        Toast.makeText(getActivity(), "History was not erased", Toast.LENGTH_SHORT).show();
                     }
                 })
                 .setNegativeButton("No", null)
@@ -80,7 +72,7 @@ public class SettingFragment extends Fragment {
         ContentValues contentValues = new ContentValues();
         contentValues.put("username", getUsername());
         contentValues.put("logged_in", "false");
-        getActivity().getContentResolver().update(HabiProvider.CONTENT_URI_CURRENT, contentValues, getUsername(), null);
+        requireActivity().getContentResolver().update(HabiProvider.CONTENT_URI_CURRENT, contentValues, getUsername(), null);
 
 
         Intent i = new Intent(getActivity(), MainActivity.class);
@@ -93,12 +85,9 @@ public class SettingFragment extends Fragment {
                 .setTitle("Change your Password:")
                 .setMessage("Enter your new password:")
                 .setView(taskEditText)
-                .setPositiveButton("Change", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        String pass = String.valueOf(taskEditText.getText());
-                        updateAcc(pass);
-                    }
+                .setPositiveButton("Change", (dialog1, which) -> {
+                    String pass = String.valueOf(taskEditText.getText());
+                    updateAcc(pass);
                 })
                 .setNegativeButton("Back", null)
                 .create();
@@ -113,7 +102,7 @@ public class SettingFragment extends Fragment {
         try {
             ContentValues contentValues = new ContentValues();
             contentValues.put("password", pass);
-            getActivity().getContentResolver().update(HabiProvider.CONTENT_URI, contentValues, getUsername(), null);
+            requireActivity().getContentResolver().update(HabiProvider.CONTENT_URI, contentValues, getUsername(), null);
             Toast.makeText(getActivity(), "Password changed", Toast.LENGTH_SHORT).show();
         }
         catch(SQLiteException e){

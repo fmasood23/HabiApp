@@ -16,7 +16,7 @@ public class HomePage extends AppCompatActivity {
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.nav_bar);
         getSupportFragmentManager().beginTransaction().replace(R.id.current_fragment, new HomeFragment()).addToBackStack("first").commit();
-        bottomNavigationView.setOnItemSelectedListener(nav -> handleBottomNav(nav));
+        bottomNavigationView.setOnItemSelectedListener(this::handleBottomNav);
     }
 
     private boolean handleBottomNav(MenuItem item){

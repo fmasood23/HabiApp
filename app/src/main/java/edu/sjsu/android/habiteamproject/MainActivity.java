@@ -6,16 +6,13 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import java.sql.Array;
 
 public class MainActivity extends AppCompatActivity {
     private EditText usernameInput, passwordInput;
-    private Button loginButton, signUpButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,8 +21,8 @@ public class MainActivity extends AppCompatActivity {
 
         usernameInput = findViewById(R.id.user);
         passwordInput = findViewById(R.id.pass);
-        loginButton = findViewById(R.id.login);
-        signUpButton = findViewById(R.id.signup);
+        Button loginButton = findViewById(R.id.login);
+        Button signUpButton = findViewById(R.id.signup);
 
         loginButton.setOnClickListener(v -> handleLogin());
         signUpButton.setOnClickListener(v -> startSignUp());
