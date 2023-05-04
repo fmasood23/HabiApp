@@ -5,7 +5,7 @@
     android:layout_gravity="center_vertical">
 
     <ImageView
-        android:src="@drawable/pawstriped"
+        android:src="@drawable/shoppingcart"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_width="80px"

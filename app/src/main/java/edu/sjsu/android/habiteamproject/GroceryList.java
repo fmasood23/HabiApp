@@ -69,7 +69,7 @@ public class GroceryList extends Fragment {
 
         if (mAdapter == null) {
             mAdapter = new ArrayAdapter<>(getActivity(),
-                    R.layout.item,
+                    R.layout.g_item,
                     R.id.task_title,
                     grocery_list);
             list.setAdapter(mAdapter);
