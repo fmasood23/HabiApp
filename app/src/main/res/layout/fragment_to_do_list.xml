@@ -4,7 +4,34 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/peach"
     tools:context=".ToDoList">
+
+    <TextView
+        android:id="@+id/to_do_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="To-Do List"
+        android:textSize="30sp"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/to_do_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/ten"
+        android:layout_marginLeft="@dimen/ten"
+        android:layout_marginRight="@dimen/ten"
+        android:text="Click on add item to add an item and clear list to clear the list."
+        android:textSize="18sp"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/to_do_title" />
 
     <ListView
         android:id="@+id/list_todo"
@@ -17,19 +44,21 @@
         android:id="@+id/delete_to_do"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/ten"
         android:text="Clear list"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/add_to_do"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/to_do_info" />
 
     <Button
         android:id="@+id/add_to_do"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Add item"
+        android:layout_marginTop="@dimen/ten"
         app:layout_constraintBottom_toBottomOf="@+id/delete_to_do"
         app:layout_constraintEnd_toStartOf="@+id/delete_to_do"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/to_do_info" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

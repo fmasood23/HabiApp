@@ -1,5 +1,6 @@
 package edu.sjsu.android.habiteamproject;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -11,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CalendarView;
 import android.widget.EditText;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,8 +37,6 @@ public class CalendarFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-        }
     }
 
     @Override
@@ -52,25 +50,20 @@ public class CalendarFragment extends Fragment {
         calendarView = view.findViewById(R.id.calendarView);
         view.findViewById(R.id.reset).setOnClickListener(this::delete);
 
-        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
-            @Override
-            public void onSelectedDayChange(CalendarView v, int year, int month,
-                                            int dayOfMonth) {
-                String m="";
-                int mon = month+1;
-                if (mon < 10) {
-                    m = "0" + String.valueOf(mon);
-                }
-                else{
-                    m = String.valueOf(mon);
-                }
-                dateFormat = m + "/" + String.valueOf(dayOfMonth) + "/" + String.valueOf(year);
-                view.findViewById(R.id.add_event).setOnClickListener(val -> add(dateFormat));
+        calendarView.setOnDateChangeListener((v, year, month, dayOfMonth) -> {
+            String m;
+            int mon = month+1;
+            if (mon < 10) {
+                m = "0" + mon;
             }
-
+            else{
+                m = String.valueOf(mon);
+            }
+            dateFormat = m + "/" + dayOfMonth + "/" + year;
+            view.findViewById(R.id.add_event).setOnClickListener(val -> add(dateFormat));
         });
 
-        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
         String selectedDate = sdf.format(new Date(calendarView.getDate()));
         view.findViewById(R.id.add_event).setOnClickListener(val -> add(selectedDate));
         view.findViewById(R.id.get_event).setOnClickListener(this::getAllDates);
@@ -89,7 +82,7 @@ public class CalendarFragment extends Fragment {
                 contentValues.put("date", dates);
                 contentValues.put("title", dateTitle.getText().toString());
 
-                getActivity().getContentResolver().insert(HabiProvider.CONTENT_URI_CALENDAR, contentValues);
+                requireActivity().getContentResolver().insert(HabiProvider.CONTENT_URI_CALENDAR, contentValues);
                 date.setText("");
                 Toast.makeText(getActivity(), "Date added", Toast.LENGTH_SHORT).show();
             }
@@ -101,7 +94,7 @@ public class CalendarFragment extends Fragment {
 
     public void delete(View v){
         try {
-            getActivity().getContentResolver().delete(HabiProvider.CONTENT_URI_CALENDAR, getUsername(), null);
+            requireActivity().getContentResolver().delete(HabiProvider.CONTENT_URI_CALENDAR, getUsername(), null);
             date.setText("No events added \n");
         } catch (Exception e) {
             e.printStackTrace();
@@ -117,7 +110,7 @@ public class CalendarFragment extends Fragment {
 
     public void getAllDates(View view) {
         date.setText("No events added \n");
-        try (Cursor c = getActivity().getContentResolver().query(HabiProvider.CONTENT_URI_CALENDAR, null, getUsername(), null, null)) {
+        try (Cursor c = requireActivity().getContentResolver().query(HabiProvider.CONTENT_URI_CALENDAR, null, getUsername(), null, null)) {
             if (c.moveToFirst()) {
                 String result = "All Dates: \n";
                 do {
@@ -125,10 +118,6 @@ public class CalendarFragment extends Fragment {
                         if(c.getString(i).length()>=20){
                             int newline = c.getString(i).length()/20;
                             for(int j=0; j<=newline; j++){
-                                String current = c.getString(i).substring(j*20, (j*20)+1);
-                                if(current.equals(" ")){
-                                    c.getString(i).replace(current, "");
-                                }
                                 if((j*20)+20>c.getString(i).length()){
                                     result = result.concat(c.getString(i).substring(j*20));
                                 } else{
