@@ -40,6 +40,8 @@ public class SleepTracker extends Fragment {
         sleepInput = view.findViewById(R.id.enter_sleep);
         setAvg = view.findViewById(R.id.sleep_average);
 
+        setAvg.setText("You sleep an average of " + Double.toString(getNumSleep()) + " hours a night.");
+
         //onclick listener for submit
         view.findViewById(R.id.submit_sleep).setOnClickListener(this::setSleep);
 
@@ -88,7 +90,7 @@ public class SleepTracker extends Fragment {
                 } while (c.moveToNext());
                 return result/count;
             } else {
-                return -1;
+                return 0;
             }
         }
     }
