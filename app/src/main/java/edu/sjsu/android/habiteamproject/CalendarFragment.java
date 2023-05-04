@@ -122,9 +122,25 @@ public class CalendarFragment extends Fragment {
                 String result = "All Dates: \n";
                 do {
                     for (int i = 1; i < c.getColumnCount(); i++) {
-                        result = result.concat(c.getString(i) + "            ");
+                        if(c.getString(i).length()>=20){
+                            int newline = c.getString(i).length()/20;
+                            for(int j=0; j<=newline; j++){
+                                String current = c.getString(i).substring(j*20, (j*20)+1);
+                                if(current.equals(" ")){
+                                    c.getString(i).replace(current, "");
+                                }
+                                if((j*20)+20>c.getString(i).length()){
+                                    result = result.concat(c.getString(i).substring(j*20));
+                                } else{
+                                    result = result.concat(c.getString(i).substring(j*20, (j*20)+20)  + "\n                             ");
+                                }
+                            }
+                        }
+                        else {
+                            result = result.concat(c.getString(i) + "       ");
+                        }
                     }
-                    result = result.concat("\n");
+                    result = result.concat("\n\n");
                 } while (c.moveToNext());
                 date.setText(result);
             }
