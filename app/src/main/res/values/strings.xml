@@ -15,6 +15,6 @@
         4. Calendar app: Add events and view the events added! \n \n
     </string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="regex">^[a–zA-Z0-9_!#$%&amp;\'*+/=?`{|}~^-]+(?:\.[a-zA-Z0-9_!#$%&amp;\'*+/=?`{|}~^-]+)*@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$</string>
+    <string name="regex">^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$</string>
 
 </resources>
