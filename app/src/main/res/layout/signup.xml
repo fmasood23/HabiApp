@@ -7,10 +7,44 @@
     android:background="@color/teal"
     tools:context=".SignUp">
 
+    <TextView
+        android:id="@+id/create_acc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/ten"
+        android:layout_marginTop="@dimen/twenty"
+        android:layout_marginEnd="@dimen/ten"
+        android:text="Create an Account!"
+        android:textSize="30sp"
+        android:textAlignment="center"
+        />
+
+    <TextView
+        android:id="@+id/create_acc_instruc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/create_acc"
+        android:layout_marginStart="@dimen/ten"
+        android:layout_marginTop="@dimen/twenty"
+        android:layout_marginEnd="@dimen/ten"
+        android:text="Fill out the required fields below and then click sign up!"
+        android:textAlignment="center"
+        />
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="500px"
+        android:layout_height="500px"
+        android:layout_below="@id/create_acc_instruc"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="@dimen/twenty"
+        android:src="@drawable/logo" />
+
     <EditText
         android:id="@+id/new_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/logo"
         android:layout_marginStart="@dimen/ten"
         android:layout_marginTop="@dimen/twenty"
         android:layout_marginEnd="@dimen/ten"
@@ -39,24 +73,32 @@
         android:hint="Enter Password"
         android:inputType="textPassword" />
 
-    <Button
-        android:id="@+id/create_account"
-        android:layout_width="match_parent"
+    <TableRow
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/ten"
-        android:layout_marginTop="250dp"
-        android:layout_marginEnd="@dimen/ten"
-        android:text="Create Account"
-        android:textAllCaps="false" />
+        android:layout_below="@id/new_password"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/twenty"
+        android:weightSum="2"
+        >
 
-    <Button
-        android:id="@+id/back"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/ten"
-        android:layout_marginTop="@dimen/triple"
-        android:layout_marginEnd="@dimen/ten"
-        android:text="@string/back"
-        android:textAllCaps="false" />
+        <Button
+            android:id="@+id/create_account"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Create Account"
+            android:layout_marginRight="@dimen/ten"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/back"
+            android:layout_marginLeft="@dimen/ten"
+            android:textAllCaps="false" />
+
+    </TableRow>
+
 
 </RelativeLayout>

@@ -172,7 +172,6 @@ public class HabiDB extends SQLiteOpenHelper {
 
     public Cursor getUser() {
         SQLiteDatabase database = getWritableDatabase();
-        //return database.rawQuery("SELECT username FROM current WHERE logged_in = 'true';", null);
         String where = "logged_in = ?";
         String[] whereArgs = new String[] {"true"};
         return database.query(TABLE_NAME_CURRENT,
