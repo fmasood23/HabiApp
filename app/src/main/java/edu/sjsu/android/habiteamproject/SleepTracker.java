@@ -88,7 +88,10 @@ public class SleepTracker extends Fragment {
                         result +=(c.getDouble(i));
                     }
                 } while (c.moveToNext());
-                return result/count;
+                double avg = result/count;
+                int casted = (int)(avg*100.0);
+                double two_dec = ((double)casted)/100.0;
+                return two_dec;
             } else {
                 return 0;
             }

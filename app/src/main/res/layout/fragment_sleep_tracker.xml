@@ -8,14 +8,27 @@
     tools:context=".SleepTracker">
 
     <TextView
-        android:id="@+id/sleep_prompt"
+        android:id="@+id/sleep_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:text="Enter number of hours slept:"
+        android:text="Sleep Tracker"
+        android:textAlignment="center"
+        android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/sleep_prompt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Enter the number of hours you slept:"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/sleep_title" />
 
     <EditText
         android:id="@+id/enter_sleep"
@@ -23,7 +36,7 @@
         android:layout_height="wrap_content"
         android:hint="Enter number of hours slept"
         android:inputType="numberDecimal"
-        android:layout_margin="30dp"
+        android:layout_margin="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/sleep_prompt"/>
@@ -32,7 +45,7 @@
         android:id="@+id/submit_sleep"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:text="Submit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -42,10 +55,24 @@
         android:id="@+id/sleep_average"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
+        android:textSize="18sp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/submit_sleep" />
 
+    <ImageView
+        android:id="@+id/cat_sleep"
+        android:src="@drawable/sleep"
+        android:layout_width="450px"
+        android:layout_height="450px"
+        android:layout_marginTop="40dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/sleep_average"
+    />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
