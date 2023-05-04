@@ -39,7 +39,7 @@
         android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/reset" />
+        app:layout_constraintTop_toBottomOf="@id/instruction_calendar" />
 
 
     <EditText
@@ -79,20 +79,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/get_event" />
+        app:layout_constraintTop_toBottomOf="@+id/reset" />
 
     <Button
         android:id="@+id/reset"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Clear all events"
-        android:layout_marginTop="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/calendarView"
+        android:layout_marginTop="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/instruction_calendar" />
+        app:layout_constraintTop_toBottomOf="@id/get_event" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

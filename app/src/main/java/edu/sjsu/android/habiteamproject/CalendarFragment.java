@@ -78,7 +78,7 @@ public class CalendarFragment extends Fragment {
         return view;
     }
 
-    public void add(String date) {
+    public void add(String dates) {
         try {
             if(dateTitle.getText().toString().isEmpty()){
                 Toast.makeText(getActivity(), "Title field is required", Toast.LENGTH_SHORT).show();
@@ -86,10 +86,11 @@ public class CalendarFragment extends Fragment {
             else {
                 ContentValues contentValues = new ContentValues();
                 contentValues.put("username", getUsername());
-                contentValues.put("date", date);
+                contentValues.put("date", dates);
                 contentValues.put("title", dateTitle.getText().toString());
 
                 getActivity().getContentResolver().insert(HabiProvider.CONTENT_URI_CALENDAR, contentValues);
+                date.setText("");
                 Toast.makeText(getActivity(), "Date added", Toast.LENGTH_SHORT).show();
             }
         } catch (Exception e) {
@@ -121,7 +122,7 @@ public class CalendarFragment extends Fragment {
                 String result = "All Dates: \n";
                 do {
                     for (int i = 1; i < c.getColumnCount(); i++) {
-                        result = result.concat(c.getString(i) + "      ");
+                        result = result.concat(c.getString(i) + "            ");
                     }
                     result = result.concat("\n");
                 } while (c.moveToNext());
