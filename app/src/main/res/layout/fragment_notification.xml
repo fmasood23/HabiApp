@@ -21,18 +21,33 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:textSize="30sp"
-        android:layout_margin="20dp"
+        android:layout_margin="@dimen/twenty"
         />
 
+    <ImageView
+        android:id="@+id/about_logo"
+        android:layout_width="500px"
+        android:layout_height="500px"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title"
+        android:layout_marginBottom="60dp"
+        android:layout_marginTop="@dimen/twenty"
+        android:layout_centerInParent="true"
+        android:src="@drawable/logo" />
+
     <TextView
+        android:id="@+id/description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
+        android:layout_margin="@dimen/twenty"
         android:text="@string/about"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title" />
+        app:layout_constraintTop_toBottomOf="@+id/about_logo" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
 
 </ScrollView>

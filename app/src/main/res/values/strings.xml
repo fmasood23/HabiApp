@@ -12,7 +12,8 @@
         2. Water tracker: Drink a glass of water and click the button to add a glass of water. This can allow
         you to stay on track of your water intake. \n \n
         3. To-do list: A to do list is essential in planning tasks to complete. This can help manage your day to day life. \n \n
-        4. Calendar app: Add events and view the events added! \n \n
+        4. Grocery list: This can keep track of all the groceries to collect at your next grocery run! \n\n
+        5. Calendar app: Add events and view the events added! \n \n
     </string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="regex">^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$</string>
