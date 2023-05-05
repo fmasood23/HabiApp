@@ -8,16 +8,17 @@
         android:src="@drawable/pawstriped"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
-        android:layout_width="80px"
-        android:layout_height="80px"
-        android:layout_marginLeft="20dp"
+        android:layout_width="100px"
+        android:layout_height="100px"
+        android:layout_marginLeft="@dimen/twenty"
+        android:layout_marginBottom="10dp"
         android:layout_marginTop="10dp"/>
 
     <TextView
         android:id="@+id/task_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="60dp"
+        android:layout_marginStart="70dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"

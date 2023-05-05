@@ -1,18 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:fillViewport="true"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:nestedScrollingEnabled="false"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/peach"
     tools:context=".GroceryList">
+
+    <TextView
+        android:id="@+id/grocery_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/twenty"
+        android:text="Grocery List"
+        android:textSize="30sp"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/grocery_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/ten"
+        android:layout_marginLeft="@dimen/ten"
+        android:layout_marginRight="@dimen/ten"
+        android:text="Click on add item to add an item and clear list to clear the list."
+        android:textSize="18sp"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/grocery_title" />
 
     <ListView
         android:id="@+id/list_grocery"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/add_grocery"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"
+        android:scrollbars="horizontal"/>
 
     <Button
         android:id="@+id/delete_grocery"
@@ -20,17 +56,20 @@
         android:layout_height="wrap_content"
         android:text="Clear list"
         app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="@dimen/ten"
         app:layout_constraintStart_toEndOf="@+id/add_grocery"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/grocery_info" />
 
     <Button
         android:id="@+id/add_grocery"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Add item"
+        android:layout_marginTop="@dimen/ten"
         app:layout_constraintBottom_toBottomOf="@+id/delete_grocery"
         app:layout_constraintEnd_toStartOf="@+id/delete_grocery"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/grocery_info" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
