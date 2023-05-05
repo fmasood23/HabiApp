@@ -44,11 +44,13 @@
 
     <ListView
         android:id="@+id/list_grocery"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/add_grocery"
+        android:layout_width="match_parent"
+        android:layout_height="350dp"
+        android:scrollbars="horizontal"
         app:layout_constraintStart_toStartOf="parent"
-        android:scrollbars="horizontal"/>
+        android:layout_marginBottom="40dp"
+        android:layout_marginTop="@dimen/twenty"
+        app:layout_constraintTop_toBottomOf="@id/add_grocery"/>
 
     <Button
         android:id="@+id/delete_grocery"
