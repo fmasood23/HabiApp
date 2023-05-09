@@ -55,7 +55,7 @@ public class SettingFragment extends Fragment {
 
                         Toast.makeText(getActivity(), "User Data was deleted", Toast.LENGTH_SHORT).show();
                     } catch (SQLiteException e){
-                        Toast.makeText(getActivity(), "History was not erased", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "User data was not erased", Toast.LENGTH_SHORT).show();
                     }
                 })
                 .setNegativeButton("No", null)
@@ -69,14 +69,19 @@ public class SettingFragment extends Fragment {
     }
 
     private void signOut(){
-        ContentValues contentValues = new ContentValues();
-        contentValues.put("username", getUsername());
-        contentValues.put("logged_in", "false");
-        requireActivity().getContentResolver().update(HabiProvider.CONTENT_URI_CURRENT, contentValues, getUsername(), null);
+        try {
+            ContentValues contentValues = new ContentValues();
+            contentValues.put("username", getUsername());
+            contentValues.put("logged_in", "false");
+            requireActivity().getContentResolver().update(HabiProvider.CONTENT_URI_CURRENT, contentValues, getUsername(), null);
 
 
-        Intent i = new Intent(getActivity(), MainActivity.class);
-        startActivity(i);
+            Intent i = new Intent(getActivity(), MainActivity.class);
+            startActivity(i);
+        }
+        catch(SQLiteException e){
+            Toast.makeText(getActivity(), "Sign out could not be completed", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void add(View v) {
@@ -96,7 +101,7 @@ public class SettingFragment extends Fragment {
 
     private void updateAcc(String pass){
         if(pass.isEmpty()){
-            Toast.makeText(getActivity(), "Do not leave empty", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Do not password field leave empty", Toast.LENGTH_SHORT).show();
         }
 
         try {

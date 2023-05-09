@@ -37,7 +37,7 @@ public class GroceryList extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_grocery_list, container, false);
-        list = (ListView) view.findViewById(R.id.list_grocery);
+        list = view.findViewById(R.id.list_grocery);
         view.findViewById(R.id.add_grocery).setOnClickListener(this::add);
         view.findViewById(R.id.delete_grocery).setOnClickListener(this::delete);
         populateList();
@@ -114,7 +114,7 @@ public class GroceryList extends Fragment {
         }
         catch(Exception e){
             e.printStackTrace();
-            Toast.makeText(getActivity(), "error", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Could not add item", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -125,7 +125,7 @@ public class GroceryList extends Fragment {
         }
         catch(Exception e){
             e.printStackTrace();
-            Toast.makeText(getActivity(), "error", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Could not delete items", Toast.LENGTH_SHORT).show();
         }
     }
 }

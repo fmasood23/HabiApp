@@ -88,7 +88,7 @@ public class CalendarFragment extends Fragment {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            Toast.makeText(getActivity(), "error", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Adding date did not work", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -98,7 +98,7 @@ public class CalendarFragment extends Fragment {
             date.setText("No events added \n");
         } catch (Exception e) {
             e.printStackTrace();
-            Toast.makeText(getActivity(), "error", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Deleting dates did not work", Toast.LENGTH_SHORT).show();
         }
     }
 

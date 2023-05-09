@@ -38,11 +38,11 @@ public class MainActivity extends AppCompatActivity {
                 contentValues.put("logged_in", "true");
                 getContentResolver().update(HabiProvider.CONTENT_URI_CURRENT, contentValues, userName, null);
 
-                Toast.makeText(this, "good", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Sign in successful", Toast.LENGTH_SHORT).show();
                 Intent i = new Intent(MainActivity.this, HomePage.class);
                 startActivity(i);
             } else {
-                Toast.makeText(this, "wrong pass", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Wrong username or password", Toast.LENGTH_SHORT).show();
             }
     }
 
@@ -52,11 +52,11 @@ public class MainActivity extends AppCompatActivity {
 
         //validation if empty
         if (user.isEmpty() && pass.isEmpty()) {
-            Toast.makeText(MainActivity.this, "both vals are empty", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this, "All fields are empty", Toast.LENGTH_SHORT).show();
         } else if (user.isEmpty()) {
-            Toast.makeText(MainActivity.this, "username empty", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this, "The username field is empty", Toast.LENGTH_SHORT).show();
         } else if (pass.isEmpty()) {
-            Toast.makeText(MainActivity.this, "password empty", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this, "The password field is empty", Toast.LENGTH_SHORT).show();
         } else {
             login(user, pass);
         }

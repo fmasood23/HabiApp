@@ -61,7 +61,7 @@ public class SleepTracker extends Fragment {
         }
         catch(Exception e){
             e.printStackTrace();
-            Toast.makeText(getActivity(), "error", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Could not add sleep hours", Toast.LENGTH_SHORT).show();
         }
         String set = "You sleep an average of " + getNumSleep() + " hours a night.";
         setAvg.setText(set);
