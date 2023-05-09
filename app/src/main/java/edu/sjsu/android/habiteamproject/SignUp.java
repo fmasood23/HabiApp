@@ -49,7 +49,6 @@ public class SignUp extends AppCompatActivity {
                     Toast.makeText(SignUp.this, "Invalid Email", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                //database.insertLogin(user, pass, mail);
                 ContentValues contentValues = new ContentValues();
                 contentValues.put("username", user);
                 contentValues.put("password", pass);

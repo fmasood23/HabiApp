@@ -107,7 +107,6 @@ public class HabiProvider extends ContentProvider {
                     getContext().getContentResolver().notifyChange(_uri, null);
                     return _uri;
                 }
-                //throw new SQLException("Failed to add a record into " + uri);
         }
         return null;
     }
