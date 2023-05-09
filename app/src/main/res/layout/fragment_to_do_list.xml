@@ -52,7 +52,8 @@
         android:text="Clear list"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/add_to_do"
-        app:layout_constraintTop_toBottomOf="@id/to_do_info" />
+        app:layout_constraintTop_toBottomOf="@id/to_do_info"
+        android:textAllCaps="false" />
 
     <Button
         android:id="@+id/add_to_do"
@@ -63,7 +64,8 @@
         app:layout_constraintBottom_toBottomOf="@+id/delete_to_do"
         app:layout_constraintEnd_toStartOf="@+id/delete_to_do"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/to_do_info" />
+        app:layout_constraintTop_toBottomOf="@id/to_do_info"
+        android:textAllCaps="false" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

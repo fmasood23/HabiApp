@@ -37,7 +37,8 @@
         android:layout_marginRight="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/instruction_setting"/>
+        app:layout_constraintTop_toBottomOf="@id/instruction_setting"
+        android:textAllCaps="false"/>
 
     <Button
         android:id="@+id/change_pass"
@@ -49,7 +50,8 @@
         android:layout_marginRight="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signout" />
+        app:layout_constraintTop_toBottomOf="@+id/signout"
+        android:textAllCaps="false" />
 
     <Button
         android:id="@+id/reset_user"
@@ -61,6 +63,7 @@
         android:layout_marginRight="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/change_pass" />
+        app:layout_constraintTop_toBottomOf="@+id/change_pass"
+        android:textAllCaps="false" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

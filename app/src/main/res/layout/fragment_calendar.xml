@@ -63,7 +63,8 @@
         android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/add_event"
-        app:layout_constraintTop_toBottomOf="@+id/enter_title" />
+        app:layout_constraintTop_toBottomOf="@+id/enter_title"
+        android:textAllCaps="false"/>
 
     <Button
         android:id="@+id/add_event"
@@ -73,7 +74,8 @@
         app:layout_constraintBottom_toBottomOf="@+id/get_event"
         app:layout_constraintEnd_toStartOf="@+id/get_event"
         app:layout_constraintStart_toEndOf="@+id/enter_title"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:textAllCaps="false" />
 
     <TextView
         android:id="@+id/get_date"
@@ -96,7 +98,8 @@
         android:layout_marginTop="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/get_event" />
+        app:layout_constraintTop_toBottomOf="@id/get_event"
+        android:textAllCaps="false" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
