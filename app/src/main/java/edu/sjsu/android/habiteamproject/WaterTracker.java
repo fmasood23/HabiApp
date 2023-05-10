@@ -56,7 +56,7 @@ public class WaterTracker extends Fragment {
             requireActivity().getContentResolver().insert(HabiProvider.CONTENT_URI_WATER, contentValues);
         } catch (Exception e) {
             e.printStackTrace();
-            Toast.makeText(getActivity(), "error", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Could not add glass of water", Toast.LENGTH_SHORT).show();
         }
         String set = "You drank " + getWaterTotal() + " glasses of water today.";
         total.setText(set);

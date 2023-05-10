@@ -53,7 +53,7 @@ public class SettingFragment extends Fragment {
                         requireActivity().getContentResolver().delete(HabiProvider.CONTENT_URI_GROCERY, user, null);
                         requireActivity().getContentResolver().delete(HabiProvider.CONTENT_URI_CALENDAR, user, null);
 
-                        Toast.makeText(getActivity(), "User Data was deleted", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "User data was deleted", Toast.LENGTH_SHORT).show();
                     } catch (SQLiteException e){
                         Toast.makeText(getActivity(), "User data was not erased", Toast.LENGTH_SHORT).show();
                     }

@@ -113,7 +113,7 @@ public class ToDoList extends Fragment {
         }
         catch(Exception e){
             e.printStackTrace();
-            Toast.makeText(getActivity(), "error", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Could not add item", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -124,7 +124,7 @@ public class ToDoList extends Fragment {
         }
         catch(Exception e){
             e.printStackTrace();
-            Toast.makeText(getActivity(), "error", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Could not delete list", Toast.LENGTH_SHORT).show();
         }
     }
 }
