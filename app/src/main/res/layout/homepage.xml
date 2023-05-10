@@ -20,6 +20,6 @@
         android:layout_alignParentBottom="true"
         android:layout_gravity="bottom"
         android:background="@color/mid_green"
-        app:itemIconSize="40dp"
+        app:itemIconSize="@dimen/forty"
         app:menu="@menu/bottom_nav" />
 </RelativeLayout>

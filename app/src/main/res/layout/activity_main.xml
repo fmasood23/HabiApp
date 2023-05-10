@@ -11,31 +11,31 @@
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Welcome!"
+        android:text="@string/welcome"
         android:textStyle="bold"
-        android:textSize="20sp"
-        android:layout_marginTop="100dp"
-        android:layout_marginStart="70dp"
-        android:layout_marginEnd="100dp"/>
+        android:textSize="@dimen/twenty_text"
+        android:layout_marginTop="@dimen/one_hundred"
+        android:layout_marginStart="@dimen/seventy"
+        android:layout_marginEnd="@dimen/one_hundred"/>
 
     <TextView
         android:id="@+id/textView1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Please sign in."
-        android:textSize="15sp"
-        android:layout_marginTop="130dp"
-        android:layout_marginStart="70dp"
-        android:layout_marginEnd="100dp"/>
+        android:text="@string/login_instruct"
+        android:textSize="@dimen/fifteen_text"
+        android:layout_marginTop="@dimen/one_thirty"
+        android:layout_marginStart="@dimen/seventy"
+        android:layout_marginEnd="@dimen/one_hundred"/>
 
     <EditText
         android:id="@+id/user"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="170dp"
+        android:layout_marginTop="@dimen/one_seventy"
         android:hint="@string/username"
-        android:layout_marginStart="70dp"
-        android:layout_marginEnd="70dp"
+        android:layout_marginStart="@dimen/seventy"
+        android:layout_marginEnd="@dimen/seventy"
         android:inputType="textEmailAddress" />
 
     <EditText
@@ -43,8 +43,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/user"
-        android:layout_marginStart="70dp"
-        android:layout_marginEnd="70dp"
+        android:layout_marginStart="@dimen/seventy"
+        android:layout_marginEnd="@dimen/seventy"
         android:hint="@string/password"
         android:inputType="textPassword" />
     <Button
@@ -52,9 +52,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/pass"
-        android:layout_marginTop="5dp"
-        android:layout_marginStart="155dp"
-        android:layout_marginEnd="155dp"
+        android:layout_marginTop="@dimen/five"
+        android:layout_marginStart="@dimen/one_fifty_five"
+        android:layout_marginEnd="@dimen/one_fifty_five"
         android:text="@string/login"
         android:textAllCaps="false" />
 
@@ -63,9 +63,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/login"
-        android:layout_marginTop="5dp"
-        android:layout_marginStart="155dp"
-        android:layout_marginEnd="155dp"
+        android:layout_marginTop="@dimen/five"
+        android:layout_marginStart="@dimen/one_fifty_five"
+        android:layout_marginEnd="@dimen/one_fifty_five"
         android:text="@string/sign_up"
         android:textAllCaps="false" />
 

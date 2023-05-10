@@ -16,22 +16,22 @@
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="About Habi!"
+        android:text="@string/about_habi"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:textSize="30sp"
+        android:textSize="@dimen/thirty"
         android:layout_margin="@dimen/twenty"
         />
 
     <ImageView
         android:id="@+id/about_logo"
-        android:layout_width="500px"
-        android:layout_height="500px"
+        android:layout_width="@dimen/five_hundred_img"
+        android:layout_height="@dimen/five_hundred_img"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/title"
-        android:layout_marginBottom="60dp"
+        android:layout_marginBottom="@dimen/sixty"
         android:layout_marginTop="@dimen/twenty"
         android:layout_centerInParent="true"
         android:src="@drawable/logo" />
@@ -42,7 +42,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/twenty"
         android:text="@string/about"
-        android:textSize="20sp"
+        android:textSize="@dimen/twenty_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/about_logo" />

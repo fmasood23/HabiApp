@@ -17,5 +17,42 @@
     </string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="regex">^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$</string>
+    <string name="welcome">Welcome!</string>
+    <string name="login_instruct">Please sign in.</string>
+    <string name="calendar">Calendar</string>
+    <string name="calendar_instruct">Fill out the fields and scroll below to add and view events!</string>
+    <string name="calendar_title">Enter title of the event</string>
+    <string name="get_cal_dates">Get all dates</string>
+    <string name="add_cal_date">Add Date</string>
+    <string name="clear_cal_events">Clear all events</string>
+    <string name="grocery_title">Grocery List</string>
+    <string name="grocery_instruct">Click on add item to add an item and clear list to clear the list.</string>
+    <string name="clear_list">Clear list</string>
+    <string name="add_item">Add item</string>
+    <string name="tracker_title">Trackers</string>
+    <string name="tracker_instruct">Select any of the buttons below to start tracking!</string>
+    <string name="water_tracker">Water Tracker</string>
+    <string name="to_do_tracker">To-Do List</string>
+    <string name="sleep_tracker">Sleep Tracker</string>
+    <string name="grocery_tracker">Grocery List</string>
+    <string name="about_habi">About Habi!</string>
+    <string name="settings_title">Settings</string>
+    <string name="setting_instruct">Select any of the buttons below to edit your settings!</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="change_password">Change Password</string>
+    <string name="reset_user_account">Reset User Account</string>
+    <string name="sleep_instruct">Enter the number of hours you slept:</string>
+    <string name="sleep_hint">Enter number of hours slept</string>
+    <string name="submit">Submit</string>
+    <string name="to_do_instruct">Click on add item to add an item and clear list to clear the list.</string>
+    <string name="water_instruct">Click to add a glass of water:</string>
+    <string name="add_glass">Add a glass</string>
+    <string name="tem">Temp</string>
+    <string name="welcome_habi">Welcome to HaBi!</string>
+    <string name="sign_up_instruct">Fill out the required fields and click sign up to create an account!</string>
+    <string name="email_hint">Enter E-mail</string>
+    <string name="enter_username">Enter Username</string>
+    <string name="enter_password">Enter Password</string>
+    <string name="create_account">Create Account</string>
 
 </resources>

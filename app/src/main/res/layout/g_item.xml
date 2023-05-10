@@ -8,23 +8,23 @@
         android:src="@drawable/shoppingcart"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
-        android:layout_width="100px"
-        android:layout_height="100px"
-        android:layout_marginLeft="20dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="10dp"/>
+        android:layout_width="@dimen/one_hundred_img"
+        android:layout_height="@dimen/one_hundred_img"
+        android:layout_marginLeft="@dimen/twenty"
+        android:layout_marginBottom="@dimen/ten"
+        android:layout_marginTop="@dimen/ten"/>
 
     <TextView
         android:id="@+id/task_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="70dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
-        android:text="Temp"
+        android:layout_marginStart="@dimen/seventy"
+        android:layout_marginTop="@dimen/ten"
+        android:layout_marginEnd="@dimen/ten"
+        android:layout_marginBottom="@dimen/ten"
+        android:text="@string/tem"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
-        android:textSize="20sp" />
+        android:textSize="@dimen/twenty_text" />
 
 </RelativeLayout>

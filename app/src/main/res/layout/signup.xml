@@ -14,8 +14,8 @@
         android:layout_marginStart="@dimen/ten"
         android:layout_marginTop="@dimen/ten"
         android:layout_marginEnd="@dimen/ten"
-        android:text="Welcome to HaBi!"
-        android:textSize="30sp"
+        android:text="@string/welcome_habi"
+        android:textSize="@dimen/thirty_text"
         android:textAlignment="center"
         />
 
@@ -25,16 +25,16 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/create_acc"
         android:layout_marginStart="@dimen/ten"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="@dimen/five"
         android:layout_marginEnd="@dimen/ten"
-        android:text="Fill out the required fields and click sign up to create an account!"
+        android:text="@string/sign_up_instruct"
         android:textAlignment="center"
         />
 
     <ImageView
         android:id="@+id/logo"
-        android:layout_width="500px"
-        android:layout_height="500px"
+        android:layout_width="@dimen/five_hundred_img"
+        android:layout_height="@dimen/five_hundred_img"
         android:layout_below="@id/create_acc_instruc"
         android:layout_centerInParent="true"
         android:layout_marginTop="@dimen/twenty"
@@ -48,7 +48,7 @@
         android:layout_marginStart="@dimen/ten"
         android:layout_marginTop="@dimen/twenty"
         android:layout_marginEnd="@dimen/ten"
-        android:hint="Enter E-mail"
+        android:hint="@string/email_hint"
         android:inputType="textEmailAddress" />
 
     <EditText
@@ -59,7 +59,7 @@
         android:layout_marginStart="@dimen/ten"
         android:layout_marginTop="@dimen/twenty"
         android:layout_marginEnd="@dimen/ten"
-        android:hint="Enter Username"
+        android:hint="@string/enter_username"
         android:inputType="text" />
 
     <EditText
@@ -70,7 +70,7 @@
         android:layout_marginStart="@dimen/ten"
         android:layout_marginTop="@dimen/twenty"
         android:layout_marginEnd="@dimen/ten"
-        android:hint="Enter Password"
+        android:hint="@string/enter_password"
         android:inputType="textPassword" />
 
     <TableRow
@@ -86,7 +86,7 @@
             android:id="@+id/create_account"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Create Account"
+            android:text="@string/create_account"
             android:layout_marginRight="@dimen/ten"
             android:textAllCaps="false" />
 
@@ -99,6 +99,5 @@
             android:textAllCaps="false" />
 
     </TableRow>
-
 
 </RelativeLayout>
