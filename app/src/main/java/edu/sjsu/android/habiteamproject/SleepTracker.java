@@ -49,7 +49,7 @@ public class SleepTracker extends Fragment {
         String inputted_hours = sleepInput.getText().toString();
 
         if(inputted_hours.isEmpty()){
-            Toast.makeText(getActivity(),"Invalid input",Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(),"Field cannot be left empty",Toast.LENGTH_LONG).show();
             return;
         }
 
