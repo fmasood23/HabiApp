@@ -105,6 +105,7 @@ public class GroceryList extends Fragment {
         try{
             if(grocery.isEmpty()){
                 Toast.makeText(getActivity(), "Field is required", Toast.LENGTH_SHORT).show();
+                return;
             }
             ContentValues contentValues = new ContentValues();
             contentValues.put("username", getUsername());

@@ -104,6 +104,7 @@ public class ToDoList extends Fragment {
         try{
             if(content.isEmpty()){
                 Toast.makeText(getActivity(), "Field is required", Toast.LENGTH_SHORT).show();
+                return;
             }
             ContentValues contentValues = new ContentValues();
             contentValues.put("username", getUsername());
