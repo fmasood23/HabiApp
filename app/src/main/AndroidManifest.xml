@@ -6,7 +6,7 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_launcher_habi"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.HaBiTeamProject"
@@ -15,7 +15,7 @@
             android:name=".HabiProvider"
             android:authorities="edu.sjsu.android.habiteamproject"
             android:enabled="true"
-            android:exported="false"></provider>
+            android:exported="false"/>
 
         <activity android:name=".SignUp" />
         <activity android:name=".HomePage" />
