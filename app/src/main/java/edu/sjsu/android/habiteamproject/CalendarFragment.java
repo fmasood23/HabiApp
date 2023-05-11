@@ -73,7 +73,7 @@ public class CalendarFragment extends Fragment {
 
     public void add(String dates) {
         try {
-            if(dateTitle.getText().toString().isEmpty()){
+            if(dateTitle.getText().toString().isEmpty() || date.getText().toString().trim().isEmpty()){
                 Toast.makeText(getActivity(), "Title field is required", Toast.LENGTH_SHORT).show();
             }
             else {
