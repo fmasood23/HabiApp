@@ -73,14 +73,15 @@ public class CalendarFragment extends Fragment {
 
     public void add(String dates) {
         try {
-            if(dateTitle.getText().toString().isEmpty() || date.getText().toString().trim().isEmpty()){
+            String title = dateTitle.getText().toString().trim();
+            if(title.isEmpty()){
                 Toast.makeText(getActivity(), "Title field is required", Toast.LENGTH_SHORT).show();
             }
             else {
                 ContentValues contentValues = new ContentValues();
                 contentValues.put("username", getUsername());
                 contentValues.put("date", dates);
-                contentValues.put("title", dateTitle.getText().toString());
+                contentValues.put("title", title);
 
                 requireActivity().getContentResolver().insert(HabiProvider.CONTENT_URI_CALENDAR, contentValues);
                 date.setText("");

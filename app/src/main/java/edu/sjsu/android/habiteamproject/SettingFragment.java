@@ -100,6 +100,7 @@ public class SettingFragment extends Fragment {
     }
 
     private void updateAcc(String pass){
+        pass = pass.trim();
         if(pass.isEmpty()){
             Toast.makeText(getActivity(), "Do not password field leave empty", Toast.LENGTH_SHORT).show();
             return;

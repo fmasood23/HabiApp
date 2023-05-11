@@ -36,7 +36,7 @@ public class ToDoList extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_to_do_list, container, false);
-        list = (ListView) view.findViewById(R.id.list_todo);
+        list = view.findViewById(R.id.list_todo);
         view.findViewById(R.id.add_to_do).setOnClickListener(this::add);
         view.findViewById(R.id.delete_to_do).setOnClickListener(this::delete);
         populateList();
@@ -102,6 +102,7 @@ public class ToDoList extends Fragment {
 
     public void insert(String content){
         try{
+            content = content.trim();
             if(content.isEmpty()){
                 Toast.makeText(getActivity(), "Field is required", Toast.LENGTH_SHORT).show();
                 return;

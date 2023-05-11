@@ -103,6 +103,7 @@ public class GroceryList extends Fragment {
 
     public void insert(String grocery){
         try{
+            grocery = grocery.trim();
             if(grocery.isEmpty()){
                 Toast.makeText(getActivity(), "Field is required", Toast.LENGTH_SHORT).show();
                 return;
